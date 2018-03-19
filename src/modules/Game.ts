@@ -22,7 +22,9 @@ export class Game {
         this.disasterCounter = disasterCounter
     }
 
-
+    incrementDisaster(quantity){
+        this.disasterCounter
+    }
 
     // Getters / Setters
 	public get city(): City {
