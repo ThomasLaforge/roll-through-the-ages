@@ -1,0 +1,100 @@
+Règles
+But du jeu
+Marquez le plus de points en devenant la civilisation la plus avancée et la plus prestigieuse en accumulant des villes, des
+monuments et des développements tout en évitant les désastres.
+
+Composants
+• 4 plateaux à chevilles
+• 24 chevilles (4 dans six couleurs différentes)
+• 7 dés
+• 1 bloc de feuilles de points
+• 2 fiches de référence détaillée
+• Ce livret de règles
+
+Préparation de la partie
+• Chaque joueur prend une feuille de points, un plateau à chevilles, 6 chevilles (une de chaque couleur) et un crayon (non
+fourni).
+• Chaque joueur place sa cheville food [nourriture] sur 3 et chacune des chevilles de ses cinq marchandises sur 0.
+• Déterminez un premier joueur et remettez-lui 3 dés. Le premier joueur dessine une "Etoile" sur sa feuille de points, elle sera
+utilisée pour déterminer qui jouera en dernier.
+
+Ordre de jeu
+Le jeu se déroule en une série de manches. A chaque manche, chaque joueur joue un tour. Quand chaque joueur a joué son
+tour, la manche est terminée et la prochaine manche commence.
+Un joueur peut exécuter toutes les étapes suivantes si possible (et/ou si c’est indiqué par le lancer de dés) :
+1. Lancer les dés et récupérer les marchandises et la nourriture
+2. Alimenter les villes et résoudre les désastres
+3. Construire les villes et/ou les monuments
+4. Acheter au maximum un développement
+5. Défausser les marchandises au-delà de six et passer les dés 
+
+1. Lancer les dés et récupérer les marchandises et la nourriture
+Lancez 1 dé pour chaque ville en votre possession. (Chaque joueur commence avec 3 villes). Mettez de côté chaque dé qui
+montre un crâne. Vous pouvez maintenant garder ou relancer chacun des dés restants. Après ce deuxième lancer, mettez encore
+de côté chaque dé montrant un crâne. (Ajoutez-les aux dés montrant des crânes du premier lancer). Vous pouvez maintenant
+garder ou relancer chaque dé (y compris ceux que vous avez gardés du premier lancer) qui ne montre pas de crâne. Après ce
+troisième lancer, vous devez garder les résultats de tous vos dés. Voir le tableau 1 - Résultats des dés.
+Récupérer les marchandises
+Ajoutez vos marchandises, une par une, à celles que vous avez déjà en décalant chaque cheville d’une position vers la droite en
+partant de la rangée du bas, le bois, et en remontant vers le haut, la pierre, la poterie, le tissu et les fers de lance. Si vous avez
+gagné plus de 5 marchandises ce tour-ci, continuez d'ajouter les marchandises une par une en passant de la rangée supérieure
+(les fers de lance) à la rangée inférieure (le bois) et en remontant encore vers le haut. Si une rangée est pleine, vous n’y
+collectez rien mais elle compte toujours comme une des marchandises que vous avez gagnée ce tour-ci. A chaque tour où vous
+récupérez des marchandises, vous commencez à la rangée inférieure (bois) et continuez vers le haut comme ci-dessus.
+Récupérer la nourriture
+Avancez votre cheville nourriture d’une position pour chaque symbole nourriture sur vos dés. Notez que vous récupérez 2
+nourritures ou 2 ouvriers sur le dé marqué .
+Si un joueur n'a plus de place pour la nourriture sur son plateau à chevilles, il ne récupère pas la nourriture en excès.
+
+2. Alimenter les villes et résoudre les désastres
+Alimenter les villes
+Chaque ville (chaque dé lancé) requiert 1 nourriture. Vous devez soustraire 1 nourriture (sur votre plateau à chevilles) pour
+chaque ville en votre possession. Si vous n’avez pas assez de nourriture, chaque ville qui n'est pas alimentée souffre de famine
+et coûte au joueur 1 point par ville non alimentée.
+Conservation des points perdus
+Cochez une case dans la section désastres de votre feuille de points pour chaque point perdu. Ces points seront additionnés et
+le total soustrait de vos points à la fin de la partie.
+Résoudre les désastres
+Si les dés d'un joueur montrent plus de 1 crâne, un désastre se produira.
+Voir le tableau 2 - Résultats des désastres. 
+
+3. Construire les villes et/ou les monuments
+Pour chaque ouvrier indiqué sur vos dés, cochez un carré dans une ville ou un monument. Quand vous avez coché toutes les
+cases d’une ville, vous l'avez construite - entourez l'icône de dé au-dessus. Vous commencerez maintenant votre tour avec un
+dé supplémentaire par tour. Vous pouvez construire jusqu'à 4 nouvelles villes (pour un total de 7 villes) vous donnant un
+maximum de 7 dés par tour.
+Si vous êtes le premier joueur à cocher toutes les cases d’un monument donné, entourez le nombre de points le plus grand à
+côté du monument. (Par exemple, pour la grande pyramide, entourez le nombre 12). Informez tous les autres joueurs de biffer
+cette plus grande valeur - chaque joueur qui complètera le monument plus tard obtiendra seulement la valeur la plus petite
+(dans l’exemple de la grande pyramide, il obtiendrait 6 points). Ces points seront additionnés à la fin de la partie. Les
+monuments inachevés ne valent rien à fin de la partie.
+
+4. Acheter au maximum un développement
+Vous pouvez acheter jusqu'à un développement par tour 
+
+Victoire
+Les joueurs comparent leurs points finaux. Le joueur avec le meilleur score gagne ! En cas d’égalité, le joueur avec la plus
+forte valeur de marchandises restantes gagne.
+Partie à 3 joueurs
+Utilisez les règles de base ci-dessus, mais avant que la partie ne commence, chaque joueur doit biffer les jardins suspendus (11
+cases). Ce monument n'est pas utilisé dans une partie à 3 joueurs.
+Partie à 2 joueurs
+Utilisez les règles de base ci-dessus, mais avant que la partie ne commence, chaque joueur doit biffer le temple (7 cases) et la
+grande pyramide (15 cases). Ces monuments ne sont pas utilisés dans une partie à 2 joueurs.
+Partie en solitaire
+Utilisez les règles de base ci-dessus avec les modifications suivantes :
+• Jouez 10 manches et essayez d’obtenir le plus de points que vous pouvez.
+• Utilisez tous les monuments.
+• La peste vous affecte si elle se produit (à moins que vous ayez la médecine).
+• La religion empêche les effets de la révolte.
+• Contrairement au jeu de base, vous pouvez relancer les dés avec des crânes sur eux (comme tout autre dé).
+
+Commerce
+Comme variante, essayez le commerce qui inclut les modifications suivantes :
+• Après qu'un joueur a alimenté ses villes et résolu ses désastres mais avant qu'il construise des villes et des monuments, il peut
+commercer des marchandises et de la nourriture avec ses adversaires.
+• Pendant l'étape commerce, le joueur actif peut commercer des marchandises et de la nourriture avec les autres joueurs dans
+n'importe quelle combinaison sur laquelle les deux joueurs sont d'accord. Par exemple, un joueur peut échanger 3 wood
+[bois] contre 2 stone [pierre] avec un joueur, puis 3 stone [pierre] contre 2 pottery [poterie] avec un autre joueur. Chaque
+autre joueur peut seulement faire du commerce avec le joueur dont c’est le tour. Un joueur ne peut pas posséder plus d’une
+marchandise que son plateau de chevilles le permet.

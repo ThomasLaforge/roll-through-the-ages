@@ -1,0 +1,97 @@
+@import "cards";
+@import "infos";
+@import "colors";
+@import "gameover";
+@import "modal";
+html, body, #app, * {
+    box-sizing: border-box !important;
+}
+html, body, #app {
+    // background-color: rgba(black, 0.42) !important;
+    height: 100%;
+    // overflow: hidden;
+}
+
+.main-container{
+    height: 100%;
+}
+
+.router {
+    height: 80%;
+}
+
+// .navbar-brand {
+//     width: 20%;
+// }
+
+.game-info {
+    height: 15%;
+}
+
+.fight-card-power-used {
+    outline: 1px solid green;
+}
+
+.game-danger-choice {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    .danger-choice-card-slots {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25px;
+        .card-slot {
+            margin: 0 5%;
+        }
+    }
+    .danger-choice-actions {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+.game-fight {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    .fight-danger-card-to-fight {
+        margin: 20px auto;
+    }
+    .fight-player-interface {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .fight-danger-infos{
+            color: white;
+        }
+        .fight-danger-fight-cards,
+        .fight-danger-fight-cards-used {
+            display: flex;
+            flex-direction: column;
+            width: 20%;
+            max-height: 100%;
+            padding-bottom: 40px;
+        }
+        .fight-result-info-and-actions {
+            width: 40%;
+            text-align: center;
+            #fight-danger-temporary-result {
+                font-weight: bold;
+                font-size: 25px;
+            }
+            .fight-danger-temporary-result-success {
+                color: $success;
+            }
+            .fight-danger-temporary-result-negative {
+                color: $lose;
+            }
+        }
+    }
+}
+
+// .game-save-state-zone table {
+//     width: 100%;
+// }
