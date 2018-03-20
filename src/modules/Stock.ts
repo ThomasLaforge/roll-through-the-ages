@@ -53,55 +53,53 @@ export class FoodStock extends Stock {
     constructor(position = 3){
         super(position, 15)
     }
-
+    
     getValueByPosition(position: number){
         return position
     }
 }
 
 export abstract class ResourceStock extends Stock {
-    constructor(position = 0, maxPos: number){
+    public valueMap: number[];
+
+    constructor(position = 0, maxPos: number, valueMap: number[]){
         super(position, maxPos)
-    }
-
-}
-
-export class IronStock extends ResourceStock {
-    constructor(position?: number){
-        super(position, 4)
+        this.valueMap = valueMap
     }
 
     getValueByPosition(position: number){
-        return 1
-    }
-}
-
-export class WoodStock extends ResourceStock {
-    constructor(position?: number){
-        super(position, 4)
-    }
-
-    getValueByPosition(position: number){
-        return 2
-    }
-}
-
-export class LeatherStock extends ResourceStock {
-    constructor(position?: number){
-        super(position, 4)
-    }
-
-    getValueByPosition(position: number){
-        return 3
+        return this.valueMap[position]
     }
 }
 
 export class GoldStock extends ResourceStock {
     constructor(position?: number){
-        super(position, 4)
+        super(position, 4, [5, 15, 30, 50])
     }
+}
 
-    getValueByPosition(position: number){
-        return 4
+export class IronStock extends ResourceStock {
+    constructor(position?: number){
+        super(position, 5, [4, 12, 24, 40, 60])
+    }
+}
+
+
+export class LeatherStock extends ResourceStock {
+    constructor(position?: number){
+        super(position, 6, [3, 9, 18, 30, 45, 63])
+    }
+}
+
+export class StoneStock extends ResourceStock {
+    constructor(position?: number){
+        super(position, 7, [2, 6, 12, 20, 30, 42, 56])
+    }
+}
+
+
+export class WoodStock extends ResourceStock {
+    constructor(position?: number){
+        super(position, 8, [1, 3, 6, 10, 15, 21, 28, 36])
     }
 }

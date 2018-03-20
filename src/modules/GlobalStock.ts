@@ -5,6 +5,7 @@ import {
     IronStock,
     GoldStock,
     LeatherStock,
+    StoneStock,
     WoodStock
 } from './Stock'
 
@@ -15,14 +16,22 @@ export class GlobalStock {
     @observable private _ironStock: IronStock;
     @observable private _goldStock: GoldStock;
     @observable private _leatherStock: LeatherStock;
+    @observable private _stoneStock: StoneStock;
     
-    constructor(woodStock = new WoodStock(), foodStock = new FoodStock(), ironStock = new IronStock(), goldStock = new GoldStock(), leatherStock = new LeatherStock()){
+    constructor(
+		woodStock = new WoodStock(), 
+		foodStock = new FoodStock(), 
+		ironStock = new IronStock(), 
+		goldStock = new GoldStock(), 
+		stoneStock = new StoneStock(), 
+		leatherStock = new LeatherStock()
+	){
         this.woodStock = woodStock
         this.foodStock = foodStock
         this.ironStock = ironStock
         this.goldStock = goldStock
         this.leatherStock = leatherStock
-        this.woodStock = woodStock
+        this.stoneStock = stoneStock
     }
 
 	public get woodStock(): WoodStock {
@@ -54,6 +63,12 @@ export class GlobalStock {
 	}
 	public set leatherStock(value: LeatherStock) {
 		this._leatherStock = value;
+	}
+	public get stoneStock(): StoneStock {
+		return this._stoneStock;
+	}
+	public set stoneStock(value: StoneStock) {
+		this._stoneStock = value;
 	}
     
 

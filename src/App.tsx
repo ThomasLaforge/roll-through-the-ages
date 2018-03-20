@@ -12,9 +12,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 
-
 import Game from './components/Game';
-import CardSelectorTrainer from './components/CardSelectorTrainer';
 import './styles/main.scss';
 
 @observer
@@ -38,13 +36,12 @@ class App extends React.Component<{}, { store: Store} > {
                   <MenuIcon />
                 </IconButton>
                 <Typography variant="title" color="inherit">
-                  Vendredi
+                  Roll Through The Ages
                 </Typography>
               </Toolbar>
             </AppBar>
 
             <Game />
-            {/* <CardSelectorTrainer /> */}
           </div>
       </Provider>
     );

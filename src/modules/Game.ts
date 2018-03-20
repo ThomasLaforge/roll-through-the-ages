@@ -5,6 +5,8 @@ import * as _ from 'lodash'
 import {City} from './City'
 import {Monuments} from './Monuments'
 import {Developements} from './Developements'
+import {GlobalStock} from './GlobalStock'
+import {RollOfDice} from './RollOfDice'
 // -------
 
 export class Game {
@@ -13,18 +15,20 @@ export class Game {
     @observable private _monuments: Monuments;
     @observable private _developements: Developements;
     @observable private _disasterCounter: number;
-    @observable private _diceCollection: number;
+    @observable private _stock: GlobalStock;
+    // @observable private _diceCollection: number;
 
-	constructor(city = new City(), monuments = new Monuments(), developements = new Developements(), disasterCounter = 0){
+	constructor(city = new City(), monuments = new Monuments(), developements = new Developements(), stock = new GlobalStock(), disasterCounter = 0){
         this.city = city
         this.monuments = monuments
         this.developements = developements
-        this.disasterCounter = disasterCounter
+		this.disasterCounter = disasterCounter
+		this.stock = stock
     }
 
     incrementDisaster(quantity){
         this.disasterCounter
-    }
+	}
 
     // Getters / Setters
 	public get city(): City {
@@ -51,5 +55,17 @@ export class Game {
 	public set disasterCounter(value: number) {
 		this._disasterCounter = value;
 	}
+	public get stock(): GlobalStock {
+		return this._stock;
+	}
+	public set stock(value: GlobalStock) {
+		this._stock = value;
+	}
+	// public get diceCollection(): number {
+	// 	return this._diceCollection;
+	// }
+	// public set diceCollection(value: number) {
+	// 	this._diceCollection = value;
+	// }
     
 }
