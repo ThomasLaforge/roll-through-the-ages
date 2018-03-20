@@ -1,0 +1,80 @@
+[
+    {
+        "cost": 10,
+        "points": 2,
+        "name": "Conduite",
+        "description": "Après votre dernier lancer, vous pouvez choisir un dé et le relancer. Vous pouvez relancer un dé avec un crâne dessus. Vous devez accepter le nouveau résultat."
+    },
+    {
+        "cost": 10,
+        "points": 2,
+        "name": "Irrigation",
+        "description": "La sécheresse n’a aucun effet."
+    },
+    {
+        "cost": 15,
+        "points": 3,
+        "name": "Agriculture",
+        "description": "Récupérez 1 nourriture supplémentaire pour chaque dé indiquant de la nourriture. Cela s’applique pour les dés indiquant si vous choisissez la nourriture à la place des ouvriers."
+    },
+    {
+        "cost": 15,
+        "points": 3,
+        "name": "Carrières",
+        "description": "Récupérez 1 pierre supplémentaire quand vous produisez au moins une pierre pendant votre tour."
+    },
+    {
+        "cost": 15,
+        "points": 3,
+        "name": "Médecine",
+        "description": "Après votre dernier lancer, vous pouvez choisir un dé et le relancer. Vous pouvez relancer un dé avec un crâne dessus. Vous devez accepter le nouveau résultat."
+    },
+    {
+        "cost": 20,
+        "points": 4,
+        "name": "Invention",
+        "description": "Récupérez 12 pièces au lieu de 7 quand vous obtenez le résultat sur un dé. Les pièces inutilisées, comme d’habitude, ne peuvent pas être conservées d’un tour sur l’autre."
+    },
+    {
+        "cost": 20,
+        "points": 4,
+        "name": "Caravanes",
+        "description": "Pendant la phase de défausse, vous n’avez pas à défausser de marchandises."
+    },
+    {
+        "cost": 20,
+        "points": 6,
+        "name": "Religion",
+        "description": "Quand vous obtenez un désastre Révolte, vous ne perdez aucune marchandise. Vos adversaires perdent toutes leurs marchandises."
+    },
+    {
+        "cost": 30,
+        "points": 6,
+        "name": "Greniers",
+        "description": "Pendant la phase d’achat, récupérez 4 pièces (à utiliser dans l’achat d’un développement) pour chaque nourriture que vous vendez. Les pièces inutilisées, comme d’habitude, ne peuvent pas être conservées d’un tour sur l’autre."
+    },
+    {
+        "cost": 30,
+        "points": 6,
+        "name": "Maçonnerie",
+        "description": "Récupérez 1 ouvrier supplémentaire pour chaque dé indiquant au moins un ouvrier. Cela s’applique pour les dés indiquant si vous choisissez les ouvriers à la place de la nourriture."
+    },
+    {
+        "cost": 40,
+        "points": 6,
+        "name": "Ingénierie",
+        "description": "Pendant la phase de construction, cochez 3 cases de villes et/ou monuments pour chaque pierre que vous vendez. Vous pouvez vendre autant de pierres que vous souhaitez."
+    },
+    {
+        "cost": 50,
+        "points": 8,
+        "name": "Architecture",
+        "description": "Scorez 1 point supplémentaire pour chaque monument que vous avez terminé à la fin de la partie."
+    },
+    {
+        "cost": 60,
+        "points": 8,
+        "name": "Empire",
+        "description": "A la fin de la partie, vous scorez 1 point supplémentaire pour chaque ville en votre possession (y compris celles avec lesquelles vous avez démarré)."
+    }
+]

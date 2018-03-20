@@ -1,13 +1,22 @@
 import {observable} from 'mobx'
 
 import {Game} from './Game'
+import {RollOfDice} from './RollOfDice'
 
 export class UIStore {
-    public btndisabled: boolean;
+    @observable private _diceRoll: RollOfDice;
     
-    constructor(){
-        this.btndisabled = true;
-    }
+    constructor(game: Game){
+        this.diceRoll = new RollOfDice(game.getNbDices(), game.developements.trueBool);
+	}
+	
+	public get diceRoll(): RollOfDice {
+		return this._diceRoll;
+	}
+	public set diceRoll(value: RollOfDice) {
+		this._diceRoll = value;
+	}
+	
 }
 
 export class Store {
@@ -17,7 +26,7 @@ export class Store {
 
     constructor(){
         this.gameStore = new Game()
-        this.uiStore = new UIStore()
+        this.uiStore = new UIStore(this.gameStore)
     }
 
 	public get uiStore(): UIStore {

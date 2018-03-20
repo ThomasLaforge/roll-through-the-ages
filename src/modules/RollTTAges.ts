@@ -1,0 +1,1 @@
+const NB_ROUND_TO_PLAY = 10

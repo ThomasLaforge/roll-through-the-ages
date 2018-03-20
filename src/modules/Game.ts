@@ -6,28 +6,68 @@ import {City} from './City'
 import {Monuments} from './Monuments'
 import {Developements} from './Developements'
 import {GlobalStock} from './GlobalStock'
+import {Stock} from './Stock'
 import {RollOfDice} from './RollOfDice'
 // -------
 
 export class Game {
 
+// 	Utilisez les règles de base ci-dessus avec les modifications suivantes :
+// • Jouez 10 manches et essayez d’obtenir le plus de points que vous pouvez.
+// • Utilisez tous les monuments.
+// • La peste vous affecte si elle se produit (à moins que vous ayez la médecine).
+// • La religion empêche les effets de la révolte.
+// • Contrairement au jeu de base, vous pouvez relancer les dés avec des crânes sur eux (comme tout autre dé).
+
+
     @observable private _city: City;
     @observable private _monuments: Monuments;
     @observable private _developements: Developements;
     @observable private _disasterCounter: number;
-    @observable private _stock: GlobalStock;
+	@observable private _stock: GlobalStock;
+	@observable private _round: number;
     // @observable private _diceCollection: number;
 
-	constructor(city = new City(), monuments = new Monuments(), developements = new Developements(), stock = new GlobalStock(), disasterCounter = 0){
+	constructor(city = new City(), monuments = new Monuments(), developements = new Developements(), stock = new GlobalStock(), disasterCounter = 0, round = 1){
         this.city = city
         this.monuments = monuments
         this.developements = developements
 		this.disasterCounter = disasterCounter
 		this.stock = stock
-    }
+	}
 
-    incrementDisaster(quantity){
-        this.disasterCounter
+	getNbDices(){
+		return this.city.getNbDiceAccessible()
+	}
+
+	getFoodAndResourcesFromRoll(roll: RollOfDice){
+		let dices = roll.dices
+		// let foodQuantity = dices.filter(d => d.isFood()).reduce( (sum, d) => sum + d.value, 0)
+		let foodQuantity = 10
+		this.stock.foodStock.add(foodQuantity)
+		// TODO: Resources
+		// let resourceQuantity = dices.filter(d => d.isResources()).reduce( (sum, d) => sum + d.value, 0)
+		let resourceQuantity = 3
+		this.stock.addResources(resourceQuantity)
+	}
+
+	nourrish(){
+		let newStockValue = this.stock.foodStock.value - this.getNbDices()
+		if(newStockValue >= 0){
+			this.stock.foodStock.position = newStockValue
+		}
+		else {
+			this.stock.foodStock.position = 0
+			this.incrementDisaster(-newStockValue)
+		}
+	}
+
+    incrementDisaster(quantity: number){
+        this.disasterCounter += quantity
+	}
+
+	resolveRoll(roll){
+		console.log('resolve roll', roll)
 	}
 
     // Getters / Setters
@@ -60,6 +100,12 @@ export class Game {
 	}
 	public set stock(value: GlobalStock) {
 		this._stock = value;
+	}
+	public get round(): number {
+		return this._round;
+	}
+	public set round(value: number) {
+		this._round = value;
 	}
 	// public get diceCollection(): number {
 	// 	return this._diceCollection;

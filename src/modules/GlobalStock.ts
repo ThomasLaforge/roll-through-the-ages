@@ -32,7 +32,20 @@ export class GlobalStock {
         this.goldStock = goldStock
         this.leatherStock = leatherStock
         this.stoneStock = stoneStock
-    }
+	}
+
+	get orderedResourcesStocks(){
+		return [this.woodStock, this.stoneStock, this.leatherStock, this.ironStock, this.goldStock]
+	}
+	
+	addResources(quantity: number){
+		let i = 0
+		while(quantity > 0){
+			this.orderedResourcesStocks[i % this.orderedResourcesStocks.length].position++
+			quantity--
+			i++
+		}
+	}
 
 	public get woodStock(): WoodStock {
 		return this._woodStock;

@@ -4,7 +4,7 @@ import { DefaultProps, injector } from '../lib/mobxInjector'
 
 import {Game as GameModel} from '../modules/Game'
 
-import GameDangerChoice from './GameDangerChoice'
+import DiceZone from './DiceZone'
 
 interface GameProps extends DefaultProps {
 }
@@ -19,15 +19,11 @@ class Game extends React.Component <GameProps> {
         }
     }
 
-    // get gsm : function() { return this.gamesavemanager }, 
-    // get game : function() { return this.gsm.game },
-    // get pirateList : function(){ return this.game.getListOfPirateToFight() }
-
     render() {
         let game = this.props.game
         return (
             <div className="game">
-                Game
+                <DiceZone />
             </div>
         );
     }
