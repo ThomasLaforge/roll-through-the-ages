@@ -56,7 +56,11 @@ export class RollOfDice {
     rollOneAgain(dice: Dice){
 		dice.unFreeze()
 		dice.roll()
-    }
+	}
+	
+	// getFood(){
+	// 	this.
+	// }
 
 	public get dices(): Dice[] {
 		return this._dices;

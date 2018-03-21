@@ -3,6 +3,8 @@ import {observable} from 'mobx'
 enum DiceFace {
     Food,
     FoodOrWorker,
+    FoodOrWorker_Food,
+    FoodOrWorker_Worker,
     Worker,
     Money,
     Resource,

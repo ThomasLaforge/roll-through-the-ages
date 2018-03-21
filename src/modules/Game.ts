@@ -19,7 +19,6 @@ export class Game {
 // • La religion empêche les effets de la révolte.
 // • Contrairement au jeu de base, vous pouvez relancer les dés avec des crânes sur eux (comme tout autre dé).
 
-
     @observable private _city: City;
     @observable private _monuments: Monuments;
     @observable private _developements: Developements;
