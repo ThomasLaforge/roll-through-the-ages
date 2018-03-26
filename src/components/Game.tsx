@@ -5,6 +5,7 @@ import { DefaultProps, injector } from '../lib/mobxInjector'
 import {Game as GameModel} from '../modules/Game'
 
 import DiceZone from './DiceZone'
+import City from './City'
 
 interface GameProps extends DefaultProps {
 }
@@ -23,6 +24,7 @@ class Game extends React.Component <GameProps> {
         let game = this.props.game
         return (
             <div className="game">
+                <City />
                 <DiceZone />
             </div>
         );

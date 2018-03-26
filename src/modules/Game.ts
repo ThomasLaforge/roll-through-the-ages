@@ -3,19 +3,18 @@ import * as _ from 'lodash'
 
 // imports
 import {City} from './City'
-import {Monuments} from './Monuments'
-import {Developements} from './Developements'
+import {Monuments, Building, BuildingType} from './Monuments'
+import {Developements, DevelopementType} from './Developements'
 import {GlobalStock} from './GlobalStock'
 import {Stock} from './Stock'
-import {RollOfDice} from './RollOfDice'
+import {RollOfDiceResult, RollOfDice} from './RollOfDice'
+import {TasksInterface} from './RollTTAges'
 // -------
 
 export class Game {
 
 // 	Utilisez les règles de base ci-dessus avec les modifications suivantes :
 // • Jouez 10 manches et essayez d’obtenir le plus de points que vous pouvez.
-// • Utilisez tous les monuments.
-// • La peste vous affecte si elle se produit (à moins que vous ayez la médecine).
 // • La religion empêche les effets de la révolte.
 // • Contrairement au jeu de base, vous pouvez relancer les dés avec des crânes sur eux (comme tout autre dé).
 
@@ -33,21 +32,29 @@ export class Game {
         this.developements = developements
 		this.disasterCounter = disasterCounter
 		this.stock = stock
+		this.round = round
 	}
 
 	getNbDices(){
 		return this.city.getNbDiceAccessible()
 	}
 
-	getFoodAndResourcesFromRoll(roll: RollOfDice){
-		let dices = roll.dices
-		// let foodQuantity = dices.filter(d => d.isFood()).reduce( (sum, d) => sum + d.value, 0)
-		let foodQuantity = 10
-		this.stock.foodStock.add(foodQuantity)
-		// TODO: Resources
-		// let resourceQuantity = dices.filter(d => d.isResources()).reduce( (sum, d) => sum + d.value, 0)
-		let resourceQuantity = 3
-		this.stock.addResources(resourceQuantity)
+	handleDisaster(nbDisaster: number){
+		let loseResources = false
+		if(nbDisaster === 2 && !this.developements.isValidate(DevelopementType.Irrigation)){
+			this.incrementDisaster(2)
+		}
+		if(nbDisaster === 3 && !this.developements.isValidate(DevelopementType.Medecine)){
+			this.incrementDisaster(3)
+		}
+		if(nbDisaster === 4 && !this.monuments.isBuilt(BuildingType.MurailleDeChine)){
+			this.incrementDisaster(4)
+		}
+		if(nbDisaster >= 5 && !this.developements.isValidate(DevelopementType.Religion)){
+			loseResources = true
+			this.stock.loseAllResources()
+		}
+		return loseResources
 	}
 
 	nourrish(){
@@ -61,12 +68,55 @@ export class Game {
 		}
 	}
 
+	step1(res: RollOfDiceResult){
+		this.stock.addResources(res.resources)
+		this.stock.foodStock.add(res.food)		
+	}
+
+	step2(res: RollOfDiceResult){	
+		this.nourrish()
+		this.handleDisaster(res.disasters)
+	}
+
+	step3(tasks: TasksInterface, workerAmount: number){
+		// test worker amount
+		// build City
+		// build Monuments
+	}
+
+	step4(devType: DevelopementType, money: any){
+		// Pay : test money + resources
+
+		// validate dev
+		this.developements.getDev(devType).buy()
+	}
+
+	step5(resourceDiscard?: any){
+	// 	if(this.stock.isLegalAtEndOfTurn(resourceDiscard)){
+	// 		this.stock.discard(resourceDiscard)
+	// 	}
+	}
+
     incrementDisaster(quantity: number){
         this.disasterCounter += quantity
 	}
 
-	resolveRoll(roll){
-		console.log('resolve roll', roll)
+	getBonusScore(){
+		let bonus = 0
+		return bonus
+	}
+
+	score(){
+		let score = 0
+		// developements
+		score += this.developements.getDevelopmentsScore()
+		// monuments
+		score += this.monuments.getBuildingsScore()
+		// bonus
+		score += this.getBonusScore()
+		// desastres
+		score -= this.disasterCounter
+		return score
 	}
 
     // Getters / Setters

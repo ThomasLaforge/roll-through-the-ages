@@ -1,0 +1,51 @@
+[
+    {
+        "cost": 3,
+        "pointsFirst": 1,
+        "pointsThen": 0,
+        "name": "Pyramide du Louvre",
+        "type": 0
+    },
+    {
+        "cost": 5,
+        "pointsFirst": 2,
+        "pointsThen": 1,
+        "name": "Accropole",
+        "type": 1
+    },
+    {
+        "cost": 7,
+        "pointsFirst": 4,
+        "pointsThen": 2,
+        "name": "Eglise de Rome",
+        "type": 2
+    },
+    {
+        "cost": 13,
+        "pointsFirst": 10,
+        "pointsThen": 5,
+        "name": "Muraille de Chine",
+        "type": 3
+    },
+    {
+        "cost": 9,
+        "pointsFirst": 6,
+        "pointsThen": 3,
+        "name": "Obelisque",
+        "type": 4
+    },
+    {
+        "cost": 11,
+        "pointsFirst": 8,
+        "pointsThen": 4,
+        "name": "Cathédrale",
+        "type": 5
+    },
+    {
+        "cost": 15,
+        "pointsFirst": 12,
+        "pointsThen": 6,
+        "name": "Pyramide d'Egypte",
+        "type": 6
+    }
+]

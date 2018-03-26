@@ -1,6 +1,6 @@
 import {observable} from 'mobx'
 
-enum DiceFace {
+export enum DiceFace {
     Food,
     FoodOrWorker,
     FoodOrWorker_Food,
@@ -14,6 +14,7 @@ enum DiceFace {
 export class Dice {
     @observable private _faces: DiceFace[];
     @observable private _currentFaceIndex: number;
+    @observable private _specialFace: DiceFace;
     @observable private _frozen: boolean;
 
     constructor(faces = [
@@ -23,20 +24,42 @@ export class Dice {
         DiceFace.Money,
         DiceFace.Resource,
         DiceFace.ResourceAndDisaster
-    ], currentFace?: number, frozen = false){
+    ], currentFaceIndex?: number, frozen = false, specialFace = DiceFace.FoodOrWorker_Food ){
         this.faces = faces
-        if(!currentFace && currentFace !== 0){
+        if(!currentFaceIndex && currentFaceIndex !== 0){
             this.roll()
         }else {
-            this.currentFaceIndex = currentFace
+            this.currentFaceIndex = currentFaceIndex
         }
         this.frozen = frozen
+        this.specialFace = specialFace
     }
 
     roll(){
         if(!this.frozen){
             this.currentFaceIndex = Math.floor(Math.random() * this.faces.length)
         }
+    }
+
+    needResolution(){
+        return this.currentFace === DiceFace.FoodOrWorker
+    }
+
+    isSwitchable(){
+        return this.currentFace === DiceFace.FoodOrWorker || this.currentFace === DiceFace.FoodOrWorker_Food || this.currentFace === DiceFace.FoodOrWorker_Worker
+    }
+
+    chose(choseFood: boolean){
+        if(this.isSwitchable()){
+            this.specialFace = choseFood ? DiceFace.FoodOrWorker_Food : DiceFace.FoodOrWorker_Worker
+        }
+        else{
+            throw new Error('chose for dice face who is not FoodOrWorker')
+        }
+    }
+
+    switchSpecialFace(){
+        this.chose(!this.specialFace || this.specialFace === DiceFace.FoodOrWorker_Worker)
     }
 
     freeze(){
@@ -48,11 +71,11 @@ export class Dice {
     }
 
     isFood(){
-        return this.currentFace === DiceFace.Food || this.currentFace === DiceFace.FoodOrWorker
+        return this.currentFace === DiceFace.Food || this.currentFace === DiceFace.FoodOrWorker_Food
     }
 
     isWorker(){
-        return this.currentFace === DiceFace.Worker || this.currentFace === DiceFace.FoodOrWorker
+        return this.currentFace === DiceFace.Worker || this.currentFace === DiceFace.FoodOrWorker_Worker
     }
 
     isResource(){
@@ -71,7 +94,8 @@ export class Dice {
         switch (this.currentFace) {
             case DiceFace.Food:
                 return 3
-            case DiceFace.FoodOrWorker:
+            case DiceFace.FoodOrWorker_Food:
+            case DiceFace.FoodOrWorker_Worker:
                 return 2
             case DiceFace.Resource:
                 return 1
@@ -107,7 +131,7 @@ export class Dice {
     }
 
     get currentFace(){
-        return this.faces[this.currentFaceIndex]
+        return this.faces[this.currentFaceIndex] === DiceFace.FoodOrWorker ? this.specialFace : this.faces[this.currentFaceIndex]
     }
 
 	public get currentFaceIndex(): number {
@@ -127,6 +151,12 @@ export class Dice {
 	}
 	public set frozen(value: boolean) {
 		this._frozen = value;
+    }
+	public get specialFace(): DiceFace {
+		return this._specialFace;
 	}
+	public set specialFace(value: DiceFace) {
+		this._specialFace = value;
+	}    
     
 }

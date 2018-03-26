@@ -25,6 +25,10 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
         };
     }
 
+    componentWillReceiveProps(newProps){
+        console.log('newProps', newProps)
+    }
+
     get diceRoll(){
         return this.props.ui.diceRoll
     }
@@ -34,12 +38,35 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
         this.props.ui.diceRoll.roll()
     }
 
+    validate = () => {
+        this.props.game.handleFoodAndDisastersFromResult(this.diceRoll.getResult())
+    }
+
+    renderResults(){
+        console.log('render result')
+        const res = this.props.ui.diceRoll.getResult()
+
+        return <div className="dice-roll-result">
+            food: {res.food}, 
+            money: {res.money},
+            resource: {res.resources},
+            worker: {res.workers},
+            disaster: {res.disasters}
+        </div>
+    }
+
     render() {
+        let diceRoll = this.props.ui.diceRoll
+
         return <div className="dice-roll-zone">
             <div className="dices">
-                {this.props.ui.diceRoll.dices.map((d, k) => <Dice key={k} dice={d} />)}
+                {diceRoll.dices.map((d, k) => <Dice key={k} dice={d} />)}
             </div>
-            {!this.props.ui.diceRoll.finished && <Button onClick={this.roll}>Roll</Button> }
+            
+            {!diceRoll.isOver() && <Button onClick={this.roll}>Roll</Button>}
+            {!diceRoll.isOver() && diceRoll.needResolution() && <Button onClick={this.validate}>Validate</Button>}
+            
+            {diceRoll.isOver() && this.renderResults()}
         </div>
     }
 }

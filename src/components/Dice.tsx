@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DefaultProps, injector } from '../lib/mobxInjector'
 import {observer, inject} from 'mobx-react';
 
-import {Dice as DiceModel} from '../modules/Dice'
+import {Dice as DiceModel, DiceFace} from '../modules/Dice'
 
 interface DiceProps extends DefaultProps {
     dice: DiceModel
@@ -23,7 +23,9 @@ export default class Dice extends React.Component<DiceProps, DiceState> {
     }
 
     onClick = () => {
-        if(this.props.ui.diceRoll.turn > 0 && !this.props.ui.diceRoll.finished){    
+        let diceRoll = this.props.ui.diceRoll 
+
+        if(diceRoll.turn > 0 && !diceRoll.isOver()){    
             this.setState({ frozen: !this.state.frozen })
             if(this.props.dice.frozen){
                 this.props.dice.unFreeze()
@@ -32,15 +34,36 @@ export default class Dice extends React.Component<DiceProps, DiceState> {
                 this.props.dice.freeze()
             }
         }
+        if(diceRoll.isOver() && this.props.dice.isSwitchable()){
+            console.log('ok')
+            this.props.dice.switchSpecialFace()
+        }
     }
 
     render() {
         let dice = this.props.dice
+        let className = ''
+        className += ' dice-' + dice.currentFaceIndex
+        if(!this.props.ui.diceRoll.isOver() && dice.frozen){
+            className += ' dice-frozen'
+        }
+        else if(this.props.ui.diceRoll.isOver() && dice.isSwitchable()){
+            if(!dice.specialFace){
+                className += ' dice-special-need-resolution'                
+            }
+            else{
+                if(dice.specialFace === DiceFace.FoodOrWorker_Food){
+                    className += ' dice-special-face-food'
+                }
+                if(dice.specialFace === DiceFace.FoodOrWorker_Worker){
+                    className += ' dice-special-face-worker'
+                }
+            }
+        }
         
-        return <div className={'dice' + (!this.props.ui.diceRoll.finished && dice.frozen ? ' dice-frozen' : '')}
+        
+        return <div className={'dice' + className}
             onClick={this.onClick}
-        >
-            Face : {dice.currentFaceName}  
-        </div>
+        />
     }
 }

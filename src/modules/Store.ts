@@ -2,12 +2,13 @@ import {observable} from 'mobx'
 
 import {Game} from './Game'
 import {RollOfDice} from './RollOfDice'
+import { Developement, DevelopementType } from './Developements';
 
 export class UIStore {
     @observable private _diceRoll: RollOfDice;
     
     constructor(game: Game){
-        this.diceRoll = new RollOfDice(game.getNbDices(), game.developements.trueBool);
+        this.diceRoll = new RollOfDice(game.getNbDices(), true/* game.developements.isValidate(DevelopementType.Conduite) */);
 	}
 	
 	public get diceRoll(): RollOfDice {

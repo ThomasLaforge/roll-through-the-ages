@@ -1,6 +1,15 @@
 import { observable } from "mobx";
 
-enum DevelopementType {
+interface jsonDevelopement {
+    cost: number,
+    type: number,
+    points: number,
+    name: string,
+    description: string
+
+}
+
+export enum DevelopementType {
     Conduite,
     Irrigation,
     Agriculture,
@@ -20,21 +29,52 @@ export class Developement {
     @observable private _cost: number;
     @observable private _points: number;
     @observable private _definition: string;
-    @observable private _name: string;
     @observable private _type: DevelopementType;
     @observable private _validate: boolean;
 
-    constructor(cost: number, points: number, definition: string, name: string, type: DevelopementType, validate = false){
+    constructor(cost: number, points: number, definition: string, type: DevelopementType, validate = false){
         this.cost = cost
         this.points = points
         this.definition = definition
-        this.name = name
         this.type = type
         this.validate = validate
     }
     
     buy(){
         this.validate = true
+    }
+
+    get name(){
+        switch (this.type) {
+            case DevelopementType.Agriculture:
+                return "Agriculture"
+            case DevelopementType.Conduite:
+                return "Conduite"
+            case DevelopementType.Irrigation:
+                return "Irrigation"
+            case DevelopementType.Carrieres:
+                return "Carrieres"
+            case DevelopementType.Medecine:
+                return "Medecine"
+            case DevelopementType.Invention:
+                return "Invention"
+            case DevelopementType.Caravanes:
+                return "Caravanes"
+            case DevelopementType.Religion:
+                return "Religion"
+            case DevelopementType.Greniers:
+                return "Greniers"
+            case DevelopementType.Maçonnerie:
+                return "Maçonnerie"
+            case DevelopementType.Ingénierie:
+                return "Ingénierie"
+            case DevelopementType.Architecture:
+                return "Architecture"
+            case DevelopementType.Empire:
+                return "Empire"
+            default:
+                throw Error('no name for dev type')
+        }
     }
 
 	public get cost(): number {
@@ -55,12 +95,6 @@ export class Developement {
 	public set definition(value: string) {
 		this._definition = value;
 	}
-	public get name(): string {
-		return this._name;
-	}
-	public set name(value: string) {
-		this._name = value;
-	}
 	public get type(): DevelopementType {
 		return this._type;
 	}
@@ -78,11 +112,47 @@ export class Developement {
 
 export class Developements {
 
-    constructor(){
+    @observable private _developements: Developement[];
 
+    constructor(developements: Developement[] = [], validate: number[] = []){
+        if(!developements){
+            let arrDatas = require( '../datas/developements.json' );
+            developements = arrDatas.map( (obj: jsonDevelopement) => {
+                new Developement(obj.cost, obj.points, obj.description, obj.type);
+            });
+        }
+        this.developements = developements
     }
 
-    get trueBool(){
-        return true
+    getDevIndex(type: DevelopementType){
+        let i = 0;
+        while(i < this.developements.length && this.developements[i].type !== type){
+            i++
+        }
+        return i
     }
+
+    getDev(type: DevelopementType){
+        return this.developements[this.getDevIndex(type)]
+    }
+
+    isValidate(type: DevelopementType){
+        return this.getDev(type).validate
+    }
+
+    getDevelopmentsValidate(){
+        return this.developements.filter(d => d.validate)
+    }
+
+    getDevelopmentsScore(){
+        return this.getDevelopmentsValidate().reduce( (sum, dev) => sum + dev.points, 0)
+    }
+
+	public get developements(): Developement[] {
+		return this._developements;
+	}
+	public set developements(value: Developement[]) {
+		this._developements = value;
+	}
+
 }

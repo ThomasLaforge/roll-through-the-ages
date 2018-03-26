@@ -16,8 +16,9 @@ export abstract class Stock {
     abstract getValueByPosition(position: number): number
     
     add(quantity = 1){
-        if(!this.isFull()){
-            this.position = this.position + quantity
+        this.position = this.position + quantity
+        if(this.position > this.maxPos){
+            this.position = this.maxPos
         }
     }
 
@@ -68,7 +69,7 @@ export abstract class ResourceStock extends Stock {
     }
 
     getValueByPosition(position: number){
-        return this.valueMap[position]
+        return position - 1 < 0 ? 0 : this.valueMap[position - 1]
     }
 }
 

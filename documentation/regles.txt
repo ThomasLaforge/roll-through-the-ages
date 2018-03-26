@@ -26,7 +26,7 @@ Un joueur peut exécuter toutes les étapes suivantes si possible (et/ou si c’
 2. Alimenter les villes et résoudre les désastres
 3. Construire les villes et/ou les monuments
 4. Acheter au maximum un développement
-5. Défausser les marchandises au-delà de six et passer les dés 
+5. Défausser les marchandises au-delà de six et passer les dés
 
 1. Lancer les dés et récupérer les marchandises et la nourriture
 Lancez 1 dé pour chaque ville en votre possession. (Chaque joueur commence avec 3 villes). Mettez de côté chaque dé qui
@@ -34,29 +34,29 @@ montre un crâne. Vous pouvez maintenant garder ou relancer chacun des dés rest
 de côté chaque dé montrant un crâne. (Ajoutez-les aux dés montrant des crânes du premier lancer). Vous pouvez maintenant
 garder ou relancer chaque dé (y compris ceux que vous avez gardés du premier lancer) qui ne montre pas de crâne. Après ce
 troisième lancer, vous devez garder les résultats de tous vos dés. Voir le tableau 1 - Résultats des dés.
-Récupérer les marchandises
-Ajoutez vos marchandises, une par une, à celles que vous avez déjà en décalant chaque cheville d’une position vers la droite en
-partant de la rangée du bas, le bois, et en remontant vers le haut, la pierre, la poterie, le tissu et les fers de lance. Si vous avez
-gagné plus de 5 marchandises ce tour-ci, continuez d'ajouter les marchandises une par une en passant de la rangée supérieure
-(les fers de lance) à la rangée inférieure (le bois) et en remontant encore vers le haut. Si une rangée est pleine, vous n’y
-collectez rien mais elle compte toujours comme une des marchandises que vous avez gagnée ce tour-ci. A chaque tour où vous
-récupérez des marchandises, vous commencez à la rangée inférieure (bois) et continuez vers le haut comme ci-dessus.
-Récupérer la nourriture
-Avancez votre cheville nourriture d’une position pour chaque symbole nourriture sur vos dés. Notez que vous récupérez 2
-nourritures ou 2 ouvriers sur le dé marqué .
-Si un joueur n'a plus de place pour la nourriture sur son plateau à chevilles, il ne récupère pas la nourriture en excès.
+ - Récupérer les marchandises
+    Ajoutez vos marchandises, une par une, à celles que vous avez déjà en décalant chaque cheville d’une position vers la droite en
+    partant de la rangée du bas, le bois, et en remontant vers le haut, la pierre, la poterie, le tissu et les fers de lance. Si vous avez
+    gagné plus de 5 marchandises ce tour-ci, continuez d'ajouter les marchandises une par une en passant de la rangée supérieure
+    (les fers de lance) à la rangée inférieure (le bois) et en remontant encore vers le haut. Si une rangée est pleine, vous n’y
+    collectez rien mais elle compte toujours comme une des marchandises que vous avez gagnée ce tour-ci. A chaque tour où vous
+    récupérez des marchandises, vous commencez à la rangée inférieure (bois) et continuez vers le haut comme ci-dessus.
+ - Récupérer la nourriture
+    Avancez votre cheville nourriture d’une position pour chaque symbole nourriture sur vos dés. Notez que vous récupérez 2
+    nourritures ou 2 ouvriers sur le dé marqué .
+    Si un joueur n'a plus de place pour la nourriture sur son plateau à chevilles, il ne récupère pas la nourriture en excès.
 
 2. Alimenter les villes et résoudre les désastres
-Alimenter les villes
-Chaque ville (chaque dé lancé) requiert 1 nourriture. Vous devez soustraire 1 nourriture (sur votre plateau à chevilles) pour
-chaque ville en votre possession. Si vous n’avez pas assez de nourriture, chaque ville qui n'est pas alimentée souffre de famine
-et coûte au joueur 1 point par ville non alimentée.
-Conservation des points perdus
-Cochez une case dans la section désastres de votre feuille de points pour chaque point perdu. Ces points seront additionnés et
-le total soustrait de vos points à la fin de la partie.
-Résoudre les désastres
-Si les dés d'un joueur montrent plus de 1 crâne, un désastre se produira.
-Voir le tableau 2 - Résultats des désastres. 
+ - Alimenter les villes
+    Chaque ville (chaque dé lancé) requiert 1 nourriture. Vous devez soustraire 1 nourriture (sur votre plateau à chevilles) pour
+    chaque ville en votre possession. Si vous n’avez pas assez de nourriture, chaque ville qui n'est pas alimentée souffre de famine
+    et coûte au joueur 1 point par ville non alimentée.
+ - Conservation des points perdus
+    Cochez une case dans la section désastres de votre feuille de points pour chaque point perdu. Ces points seront additionnés et
+    le total soustrait de vos points à la fin de la partie.
+ - Résoudre les désastres
+    Si les dés d'un joueur montrent plus de 1 crâne, un désastre se produira.
+    Voir le tableau 2 - Résultats des désastres. 
 
 3. Construire les villes et/ou les monuments
 Pour chaque ouvrier indiqué sur vos dés, cochez un carré dans une ville ou un monument. Quand vous avez coché toutes les
@@ -70,7 +70,22 @@ cette plus grande valeur - chaque joueur qui complètera le monument plus tard o
 monuments inachevés ne valent rien à fin de la partie.
 
 4. Acheter au maximum un développement
-Vous pouvez acheter jusqu'à un développement par tour 
+Vous pouvez acheter jusqu'à un développement par tour en dépensant un nombre de pièces de monnaie et de marchandises
+égal (ou supérieur) à son coût, imprimé sur la feuille de points. Si vous dépensez une marchandise, vous devez la dépenser
+entièrement pour la valeu1r indiquée sous sa cheville, avant que vous ne décaliez cette dernière dans la position la plus à
+gauche. Aucune monnaie n'est effectuée, ainsi n'importe quelle valeur en excès est perdue. Chaque joueur ne peut acheter
+chaque développement qu’une seule fois. Quand vous achetez un développement, cochez la case à côté de lui sur votre feuille
+de points et entourez les points indiqués à côté de lui. Ces points seront additionnés à la fin de la partie. Pour de plus amples
+détails voir le tableau 3 - Développements.
+
+5. Défausser les marchandises au-delà de six et passer les dés
+Vous ne pouvez garder qu’un total de 6 marchandises. Chaque icône sur le plateau à chevilles est considérée comme une
+marchandise. Si vous en avez plus de 6, "défaussez" les marchandises en excès de votre choix en déplaçant vos chevilles vers
+la gauche des pistes. Par exemple, si vous aviez 5 wood [bois] et 2 stone [pierre], soit un total de 7 marchandises, vous devez
+défausser une marchandise. Vous pouvez choisir de jeter 1 stone [pierre] ou 1 wood [bois] en déplaçant la cheville
+correspondante d’une position vers la gauche. Vous ne devez défausser des marchandises qu’à la fin de votre tour. Après avoir
+marchandises, passez les dés au joueur à votre gauche. 
+
 
 Victoire
 Les joueurs comparent leurs points finaux. Le joueur avec le meilleur score gagne ! En cas d’égalité, le joueur avec la plus

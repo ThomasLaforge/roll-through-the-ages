@@ -38,14 +38,22 @@ export class GlobalStock {
 		return [this.woodStock, this.stoneStock, this.leatherStock, this.ironStock, this.goldStock]
 	}
 	
+	isLegalAtEndOfTurn(){
+		return this.orderedResourcesStocks.reduce( (sum, s) => sum + s.position + 1 ,0) <= 6
+	}
+
 	addResources(quantity: number){
 		let i = 0
 		while(quantity > 0){
-			this.orderedResourcesStocks[i % this.orderedResourcesStocks.length].position++
+			this.orderedResourcesStocks[i % this.orderedResourcesStocks.length].add()
 			quantity--
 			i++
 		}
 	}
+
+	loseAllResources(){
+		this.orderedResourcesStocks.forEach(s => s.position = 0)
+    }
 
 	public get woodStock(): WoodStock {
 		return this._woodStock;
