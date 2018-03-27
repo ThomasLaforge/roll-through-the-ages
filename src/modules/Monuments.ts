@@ -95,7 +95,7 @@ export class Monuments {
 
     constructor(buildings?: Building[]){
 		if(!buildings){
-			let arrDatas = require( '../datas/buildings.json' );
+			let arrDatas = require( '../datas/monuments.json' );
 			buildings = arrDatas.map( (obj: jsonMonument) => {
 				new Building(obj.type, obj.pointsFirst, obj.cost);
 			});

@@ -6,6 +6,7 @@ import {Game as GameModel} from '../modules/Game'
 
 import DiceZone from './DiceZone'
 import City from './City'
+import Stocks from './Stocks'
 
 interface GameProps extends DefaultProps {
 }
@@ -26,6 +27,7 @@ class Game extends React.Component <GameProps> {
             <div className="game">
                 <City />
                 <DiceZone />
+                <Stocks />
             </div>
         );
     }

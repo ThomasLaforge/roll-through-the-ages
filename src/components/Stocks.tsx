@@ -3,6 +3,7 @@ import { DefaultProps, injector } from '../lib/mobxInjector'
 import {observer, inject} from 'mobx-react';
 
 import {GlobalStock as GlobalStockModel} from '../modules/GlobalStock'
+import {Stock as StockModel} from '../modules/Stock'
 
 import Button from 'material-ui/Button'
 
@@ -22,12 +23,18 @@ export default class GlobalStock extends React.Component<GlobalStockProps, Globa
     }
 
     renderIndividualStocks(){
-        return this.props.game.stock.orderedResourcesStocks.map(s => <IndividualStock steps={s.maxPos} />)
+        return this.props.game.stock.orderedResourcesStocks.map(s => <IndividualStock stock={s} />)
+    }
+
+    renderFoodStock(){
+        return <IndividualStock stock={this.props.game.stock.foodStock} />
     }
 
     render() {
         return <div className='global-stock'>
+            <h2>Stocks</h2>
             {this.renderIndividualStocks()}
+            {this.renderFoodStock()}
         </div>
     }
 }
@@ -35,7 +42,7 @@ export default class GlobalStock extends React.Component<GlobalStockProps, Globa
 // --------------------------------------------------------------------------------
 
 interface IndividualStockProps extends DefaultProps {
-    steps
+    stock: StockModel
 }
 
 interface IndividualStockState {
@@ -51,8 +58,9 @@ class IndividualStock extends React.Component<IndividualStockProps, IndividualSt
     }
 
     render() {
+        let stock = this.props.stock
         return <div className={'individual-stock'}>
-            {/* {this.render} */}
+            type: {stock.constructor.name }, length : {stock.maxPos}, current: {stock.position}
         </div>
     }
 }

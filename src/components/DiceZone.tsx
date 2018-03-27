@@ -39,7 +39,7 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
     }
 
     validate = () => {
-        this.props.game.handleFoodAndDisastersFromResult(this.diceRoll.getResult())
+        // this.props.game.handleFoodAndDisastersFromResult(this.diceRoll.getResult())
     }
 
     renderResults(){
