@@ -13,7 +13,7 @@ html, body, #app {
     height: 100%;
 }
 
-.dices {
+.dice-roll-zone-dices {
     display: flex;
     flex-direction: row;
 }
@@ -64,4 +64,53 @@ html, body, #app {
     .district-done {
         border-color: greenyellow;
     }
+}
+
+.individual-stock {
+    display: flex;
+    flex-direction: row;
+
+    .line {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .line-point {
+        display: flex;
+        flex-direction: column;
+        
+        .point {
+            width: 5px;
+            margin: auto;
+
+            border: 5px black solid;
+            border-radius: 10px;
+        }
+
+        .point-value {
+            width: 21px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 13px;
+        }
+    }
+
+    .line-point:first-child{
+        margin-right: 5px;
+    }
+
+    .line-point-current-position .point{
+        border-width: 10px;
+    }
+}
+
+.individual-stock-GoldStock .point { border-color: yellow !important; } 
+.individual-stock-IronStock .point { border-color: lightseagreen !important; } 
+.individual-stock-LeatherStock .point { border-color: brown !important; } 
+.individual-stock-StoneStock .point { border-color: grey !important; } 
+.individual-stock-WoodStock .point { border-color: orangered !important; } 
+.individual-stock-FoodStock .point { border-color: green !important; } 
+
+.individual-stock-FoodStock {
+    margin-top: 25px;
 }

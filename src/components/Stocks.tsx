@@ -23,7 +23,7 @@ export default class GlobalStock extends React.Component<GlobalStockProps, Globa
     }
 
     renderIndividualStocks(){
-        return this.props.game.stock.orderedResourcesStocks.map(s => <IndividualStock stock={s} />)
+        return this.props.game.stock.reversedOrderedResourcesStocks.map( (s, k) => <IndividualStock key={k} stock={s} />)
     }
 
     renderFoodStock(){
@@ -46,6 +46,7 @@ interface IndividualStockProps extends DefaultProps {
 }
 
 interface IndividualStockState {
+    selected: boolean
 }
 
 @inject(injector)
@@ -54,13 +55,41 @@ class IndividualStock extends React.Component<IndividualStockProps, IndividualSt
     constructor(props: IndividualStockProps) {
         super(props);
         this.state = {
+            selected: false
         };
+    }
+
+    renderLine(){
+        let line = []
+        for(let i = 0; i <= this.props.stock.maxPos; i++){
+            let isCurrentPosition = this.props.stock.position === i
+            let bonusClass = isCurrentPosition ? ' line-point-current-position' : ''
+            line.push(
+                <div className={'line-point' + bonusClass} key={i}>
+                    <div className="point" />
+                    <div className="point-value">{this.props.stock.getValueByPosition(i)}</div>
+                </div>
+            )
+        }
+        
+        return <div className='line'>
+            {line}
+        </div>
+    }
+
+    onSelect = () => {
+        console.log('select a stock line')
+        
+        this.setState({selected: !this.state.selected })
     }
 
     render() {
         let stock = this.props.stock
-        return <div className={'individual-stock'}>
-            type: {stock.constructor.name }, length : {stock.maxPos}, current: {stock.position}
+        return <div className={'individual-stock individual-stock-' + this.props.stock.constructor.name}
+            onClick={this.onSelect}    
+        >
+            {/* type: {stock.constructor.name }, length : {stock.maxPos}, current: {stock.position} */}
+            {this.renderLine()}
         </div>
     }
 }

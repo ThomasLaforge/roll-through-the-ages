@@ -37,6 +37,14 @@ export class GlobalStock {
 	get orderedResourcesStocks(){
 		return [this.woodStock, this.stoneStock, this.leatherStock, this.ironStock, this.goldStock]
 	}
+
+	get reversedOrderedResourcesStocks(){
+		return this.orderedResourcesStocks.reverse()
+	}
+
+	get orderedResourcesStocksNames(){
+		return this.orderedResourcesStocks.map(s => s.constructor.name)
+	}
 	
 	isLegalAtEndOfTurn(){
 		return this.orderedResourcesStocks.reduce( (sum, s) => sum + s.position + 1 ,0) <= 6

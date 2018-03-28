@@ -8,8 +8,11 @@ import {Developements, DevelopementType} from './Developements'
 import {GlobalStock} from './GlobalStock'
 import {Stock} from './Stock'
 import {RollOfDiceResult, RollOfDice} from './RollOfDice'
-import {TasksInterface} from './RollTTAges'
+import {TasksInterface, GamePhase} from './RollTTAges'
+import { DiceFace } from './Dice';
 // -------
+
+export interface RollOfDiceGameResult extends RollOfDiceResult {}
 
 export class Game {
 
@@ -24,15 +27,17 @@ export class Game {
     @observable private _disasterCounter: number;
 	@observable private _stock: GlobalStock;
 	@observable private _round: number;
+	@observable private _phase: GamePhase;
     // @observable private _diceCollection: number;
 
-	constructor(city = new City(), monuments = new Monuments(), developements = new Developements(), stock = new GlobalStock(), disasterCounter = 0, round = 1){
+	constructor(city = new City(), monuments = new Monuments(), developements = new Developements(), stock = new GlobalStock(), disasterCounter = 0, round = 1, phase = GamePhase.Phase_1_Dices){
         this.city = city
         this.monuments = monuments
         this.developements = developements
 		this.disasterCounter = disasterCounter
 		this.stock = stock
 		this.round = round
+		this.phase = phase
 	}
 
 	getNbDices(){
@@ -68,12 +73,22 @@ export class Game {
 		}
 	}
 
-	step1(res: RollOfDiceResult){
-		this.stock.addResources(res.resources)
-		this.stock.foodStock.add(res.food)		
+	goToNextPhase(){
+		this.phase++
 	}
 
-	step2(res: RollOfDiceResult){	
+	step1(res: RollOfDiceGameResult){
+		this.stock.addResources(res.resources)
+		if(this.developements.isValidate(DevelopementType.Carrieres) && res.resources > 1 && !this.stock.stoneStock.isFull()){
+			this.stock.stoneStock.add()
+		}
+		
+		this.stock.foodStock.add(res.food)
+
+		this.goToNextPhase()	
+	}
+
+	step2(res: RollOfDiceGameResult){	
 		this.nourrish()
 		this.handleDisaster(res.disasters)
 	}
@@ -97,16 +112,47 @@ export class Game {
 	// 	}
 	}
 
+	getAmountOfMoneyFromDiceResult(res: RollOfDiceResult){
+		let multiplicator = this.developements.isValidate(DevelopementType.Invention) ? 12 : 7
+		return res.money * multiplicator
+	}
+
+	getAmountOfWorkerFromDiceResult(res: RollOfDiceResult){
+		return res.workers + res.dices.filter(d => d.currentFace === DiceFace.Worker || d.currentFace === DiceFace.FoodOrWorker_Worker).length 
+	}
+
+	getAmountOfFoodFromDiceResult(res: RollOfDiceResult){
+		let food = res.food
+		if(this.developements.isValidate(DevelopementType.Agriculture)){
+			food += res.dices.filter( d => d.currentFace === DiceFace.Food || d.currentFace === DiceFace.FoodOrWorker_Food).length
+		}
+		return food
+	}
+
     incrementDisaster(quantity: number){
         this.disasterCounter += quantity
 	}
 
 	getBonusScore(){
 		let bonus = 0
+		if(this.developements.isValidate(DevelopementType.Empire)){
+			bonus += this.city.getNbDiceAccessible() * 1
+		}
+		if(this.developements.isValidate(DevelopementType.Architecture)){
+			bonus += this.monuments.getBuildingsValidate().length * 1
+		}
 		return bonus
 	}
 
-	score(){
+	getResult(res: RollOfDiceResult): RollOfDiceGameResult {
+		return Object.assign(res, {
+			food: this.getAmountOfFoodFromDiceResult(res),
+			money: this.getAmountOfMoneyFromDiceResult(res),
+			workers: this.getAmountOfWorkerFromDiceResult(res)
+		})
+	}
+
+	get score(){
 		let score = 0
 		// developements
 		score += this.developements.getDevelopmentsScore()
@@ -155,6 +201,12 @@ export class Game {
 	}
 	public set round(value: number) {
 		this._round = value;
+	}
+	public get phase(): GamePhase {
+		return this._phase;
+	}
+	public set phase(value: GamePhase) {
+		this._phase = value;
 	}
 	// public get diceCollection(): number {
 	// 	return this._diceCollection;

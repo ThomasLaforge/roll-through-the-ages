@@ -2,31 +2,35 @@ import * as React from 'react';
 import { DefaultProps, injector } from '../lib/mobxInjector'
 import {observer, inject} from 'mobx-react';
 
-import {Developements as DevelopementssMode, Developement as DevelopementModel} from '../modules/Developements'
+import {Developements as DevelopementsModel, Developement as DevelopementModel} from '../modules/Developements'
 
 import Button from 'material-ui/Button'
+import Checkbox from 'material-ui/Checkbox'
+import {FormControlLabel} from 'material-ui/Form'
 
-interface DevelopementssProp extends DefaultProps {
+
+interface DevelopementsProp extends DefaultProps {
 }
 
-interface DevelopementssStat {
+interface DevelopementsStat {
 }
 
 @inject(injector)
 @observer
-export default class Developements extends React.Component<DevelopementssProp, DevelopementssStat> {
-    constructor(props: DevelopementssProp) {
+export default class Developements extends React.Component<DevelopementsProp, DevelopementsStat> {
+    constructor(props: DevelopementsProp) {
         super(props);
         this.state = {
         };
     }
 
     renderDevelopements(){
-        return this.props.game.developements.developements.map(d => <Dev dev={d} />)
+        return this.props.game.developements.developements.map( (d, k) => <Dev dev={d} key={k} />)
     }
 
     render() {
         return <div className={'Developements'}>
+            <h2>Developements</h2>
             {this.renderDevelopements()}
             {/* <Button onClick={() => {this.props.game.Developements.nbJobsDone++}}>Add</Button> */}
         </div>
@@ -45,22 +49,35 @@ interface DevState {
 @inject(injector)
 @observer
 class Dev extends React.Component<DevProps, DevState> {
+
     constructor(props: DevProps) {
         super(props);
         this.state = {
-
         };
     }
+
+    tryToBuy = () => this.props.dev.buy()
 
     render() {
         const dev = this.props.dev
         const devDoneClass = dev.validate ? ' dev-done' : ''
 
         return <div className={'dev' + devDoneClass}> 
-                <div className="dev-population">
-                    {dev.cost} : {dev.definition} {dev.validate ? ' validé' : ' to validate'}
+                <div className="dev-elt">
+                <FormControlLabel
+                    title={dev.definition}
+                    control={
+                        <Checkbox
+                            checked={dev.validate}
+                            onChange={this.tryToBuy}
+                            value={dev.cost + ' : ' + dev.definition}
+                            color="primary"
+                            disabled={dev.cost > 75}
+                        />
+                    }
+                    label={dev.cost + ' - ' + dev.name + ' (' + dev.points + ') : ' + dev.shortDescription}
+                />   
                 </div>
-            }
         </div>
     }
 }

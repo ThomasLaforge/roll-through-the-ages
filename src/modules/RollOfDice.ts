@@ -7,7 +7,8 @@ export interface RollOfDiceResult {
 	workers: number,
 	money: number,
 	disasters: number,
-	resources: number
+	resources: number,
+	dices: Dice[]
 }
 
 export class RollOfDice {
@@ -15,8 +16,9 @@ export class RollOfDice {
     @observable private _dices: Dice[];
     @observable private _autoFinish: boolean;
 	@observable private _turn: number;
+	@observable private _validated: boolean;
 
-    constructor(dices: Dice[] | number, autoFinish: boolean, turn = 1, finished = false){
+    constructor(dices: Dice[] | number, autoFinish: boolean, turn = 1, validated = false){
 		if(!Array.isArray(dices)){
 			let i = dices
 			dices = []
@@ -28,15 +30,17 @@ export class RollOfDice {
         this.dices = dices 
 		this.autoFinish = autoFinish
 		this.turn = turn
+		this.validated = validated
 	}
 	
 	getResult() : RollOfDiceResult {
 		return {
 			food: this.dices.filter(d => d.isFood()).reduce( (sum, d) => sum + d.value, 0),
 			workers: this.dices.filter(d => d.isWorker()).reduce( (sum, d) => sum + d.value, 0),
-			money: this.dices.filter(d => d.isMoney()).reduce( (sum, d) => sum + d.value, 0),
+			money: this.dices.filter(d => d.isMoney()).length,
 			disasters: this.dices.filter(d => d.isDisaster()).length,
 			resources: this.dices.filter(d => d.isResource()).reduce( (sum, d) => sum + d.value, 0),
+			dices: this.dices
 		}
 	}
 
@@ -72,7 +76,15 @@ export class RollOfDice {
 	}
 
 	getDiceWhoNeedResolution(){
-		return this.dices.filter(d => d.currentFace === DiceFace.FoodOrWorker)
+		return this.dices.filter(d => d.needResolution())
+	}
+
+	validate(){
+		this.validated = true
+	}
+
+	isValidate(){
+		return this.validated
 	}
 
 	public get dices(): Dice[] {
@@ -93,5 +105,11 @@ export class RollOfDice {
 	public set turn(value: number) {
 		this._turn = value;
 	}
-
+	public get validated(): boolean {
+		return this._validated;
+	}
+	public set validated(value: boolean) {
+		this._validated = value;
+	}
+	
 }

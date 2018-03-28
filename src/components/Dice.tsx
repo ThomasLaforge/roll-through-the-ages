@@ -5,7 +5,8 @@ import {observer, inject} from 'mobx-react';
 import {Dice as DiceModel, DiceFace} from '../modules/Dice'
 
 interface DiceProps extends DefaultProps {
-    dice: DiceModel
+    dice: DiceModel,
+    rollOneMore: boolean
 }
 
 interface DiceState {
@@ -25,7 +26,7 @@ export default class Dice extends React.Component<DiceProps, DiceState> {
     onClick = () => {
         let diceRoll = this.props.ui.diceRoll 
 
-        if(diceRoll.turn > 0 && !diceRoll.isOver()){    
+        if(!diceRoll.isOver()){    
             this.setState({ frozen: !this.state.frozen })
             if(this.props.dice.frozen){
                 this.props.dice.unFreeze()
@@ -34,9 +35,16 @@ export default class Dice extends React.Component<DiceProps, DiceState> {
                 this.props.dice.freeze()
             }
         }
-        if(diceRoll.isOver() && this.props.dice.isSwitchable()){
-            console.log('ok')
-            this.props.dice.switchSpecialFace()
+        if(diceRoll.isOver() && !diceRoll.isValidate()){
+            if(this.props.rollOneMore){
+                this.props.dice.unFreeze()
+                this.props.dice.roll()
+                // this.props.onRollOneMore()
+                // this.props.ui.diceRoll.validate()
+            }
+            else if(this.props.dice.isSwitchable()){
+                this.props.dice.switchSpecialFace()
+            }
         }
     }
 

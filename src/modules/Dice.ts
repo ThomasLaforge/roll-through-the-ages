@@ -42,7 +42,7 @@ export class Dice {
     }
 
     needResolution(){
-        return this.currentFace === DiceFace.FoodOrWorker
+        return this.faces[this.currentFaceIndex] === DiceFace.FoodOrWorker
     }
 
     isSwitchable(){

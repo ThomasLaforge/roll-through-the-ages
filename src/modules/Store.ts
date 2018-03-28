@@ -3,9 +3,11 @@ import {observable} from 'mobx'
 import {Game} from './Game'
 import {RollOfDice} from './RollOfDice'
 import { Developement, DevelopementType } from './Developements';
+import {GamePhase} from './RollTTAges'
+
 
 export class UIStore {
-    @observable private _diceRoll: RollOfDice;
+	@observable private _diceRoll: RollOfDice;
     
     constructor(game: Game){
         this.diceRoll = new RollOfDice(game.getNbDices(), true/* game.developements.isValidate(DevelopementType.Conduite) */);

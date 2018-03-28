@@ -25,7 +25,8 @@
         "pointsFirst": 10,
         "pointsThen": 5,
         "name": "Muraille de Chine",
-        "type": 3
+        "type": 3,
+        "power": 0
     },
     {
         "cost": 9,

@@ -5,8 +5,8 @@ interface jsonDevelopement {
     type: number,
     points: number,
     name: string,
-    description: string
-
+    description: string,
+    shortDescription: string
 }
 
 export enum DevelopementType {
@@ -29,13 +29,15 @@ export class Developement {
     @observable private _cost: number;
     @observable private _points: number;
     @observable private _definition: string;
+    @observable private _shortDescription: string;
     @observable private _type: DevelopementType;
     @observable private _validate: boolean;
 
-    constructor(cost: number, points: number, definition: string, type: DevelopementType, validate = false){
+    constructor(cost: number, points: number, definition: string, shortDescription: string, type: DevelopementType, validate = true){
         this.cost = cost
         this.points = points
         this.definition = definition
+        this.shortDescription = shortDescription
         this.type = type
         this.validate = validate
     }
@@ -106,6 +108,12 @@ export class Developement {
 	}
 	public set validate(value: boolean) {
 		this._validate = value;
+    }
+	public get shortDescription(): string {
+		return this._shortDescription;
+	}
+	public set shortDescription(value: string) {
+		this._shortDescription = value;
 	}
     
 }
@@ -114,12 +122,10 @@ export class Developements {
 
     @observable private _developements: Developement[];
 
-    constructor(developements: Developement[] = [], validate: number[] = []){
+    constructor(developements?: Developement[], validate: number[] = []){
         if(!developements){
             let arrDatas = require( '../datas/developements.json' );
-            developements = arrDatas.map( (obj: jsonDevelopement) => {
-                new Developement(obj.cost, obj.points, obj.description, obj.type);
-            });
+            developements = arrDatas.map( (obj: jsonDevelopement) => new Developement(obj.cost, obj.points, obj.description, obj.shortDescription, obj.type))
         }
         this.developements = developements
     }
@@ -146,7 +152,7 @@ export class Developements {
 
     getDevelopmentsScore(){
         return this.getDevelopmentsValidate().reduce( (sum, dev) => sum + dev.points, 0)
-    }
+    }    
 
 	public get developements(): Developement[] {
 		return this._developements;

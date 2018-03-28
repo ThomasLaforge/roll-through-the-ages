@@ -1,9 +1,12 @@
+import {observable} from 'mobx'
+
 interface jsonMonument {
 	cost: number,
 	pointsFirst: number,
 	pointsThen: number,
 	name: string,
 	type: number
+	power?: BuildingPower
 }
 
 export enum BuildingType {
@@ -16,18 +19,25 @@ export enum BuildingType {
 	PyramideEgypte
 }
 
+export enum BuildingPower {
+	CounterEvasion
+}
+
 export class Building {
-    private _points: number;
-    private _nbWorker: number;
-	private _nbNeededWorker: number;
-	private _type: BuildingType;
+    @observable private _points: number;
+    @observable private _nbWorker: number;
+	@observable private _nbNeededWorker: number;
+	@observable private _type: BuildingType;
+	@observable private _power: BuildingPower;
 
 // Solo: Utilisez tous les Buildings.
 
-    constructor(type: BuildingType, points: number, nbNeededWorker: number, nbWorker = 0){
+    constructor(type: BuildingType, points: number, nbNeededWorker: number, power?: BuildingPower, nbWorker = 0){
         this.points = points
         this.nbWorker = nbWorker
-        this.nbNeededWorker = nbNeededWorker 
+		this.nbNeededWorker = nbNeededWorker
+		this.type = type
+		this.power = power
     }
 
     getPercentBuilt(){
@@ -38,8 +48,12 @@ export class Building {
 		return this.nbWorker === this.nbNeededWorker
 	}
 
-	build(nbPartsBuilt: number){
-        this.nbWorker += nbPartsBuilt
+	build(nbPartsBuilt: number = 1){
+		console.log('build', this.nbWorker, nbPartsBuilt)
+		this.nbWorker += nbPartsBuilt
+		if(this.nbWorker > this.nbNeededWorker){
+			this.nbWorker = this.nbNeededWorker
+		}
 	}
 	
 	get name(){
@@ -87,17 +101,24 @@ export class Building {
 	public set type(value: BuildingType) {
 		this._type = value;
 	}
+	public get power(): BuildingPower {
+		return this._power;
+	}
+	public set power(value: BuildingPower) {
+		this._power = value;
+	}
     
 }
 
 export class Monuments {
-    private _buildings: Building[];
+    @observable private _buildings: Building[];
 
     constructor(buildings?: Building[]){
 		if(!buildings){
 			let arrDatas = require( '../datas/monuments.json' );
 			buildings = arrDatas.map( (obj: jsonMonument) => {
-				new Building(obj.type, obj.pointsFirst, obj.cost);
+				// console.log('obj', obj)
+				return new Building(obj.type, obj.pointsFirst, obj.cost, obj.power)
 			});
 		}
 		this.buildings = buildings
