@@ -13,7 +13,7 @@ interface DiceZoneProps extends DefaultProps {
 }
 
 interface DiceZoneState {
-    rollOneMore: boolean
+    wantToRollOneMore: boolean
 }
 
 @inject(injector)
@@ -22,7 +22,7 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
     constructor(props: DiceZoneProps) {
         super(props);
         this.state = {
-            rollOneMore: false
+            wantToRollOneMore: false
         };
     }
 
@@ -42,11 +42,12 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
 
     validate = () => {
         this.props.ui.diceRoll.validate()
-        // .handleFoodAndDisastersFromResult(this.diceRoll.getResult())
+        let gameResult = this.props.game.getResult(this.props.ui.diceRoll.getResult())
+        this.props.game.step1(gameResult)
     }
 
     rollAgain = () => {
-        this.setState({ rollOneMore: !this.state.rollOneMore })
+        this.setState({ wantToRollOneMore: !this.state.wantToRollOneMore })
     }
 
     renderResults(){
@@ -63,8 +64,8 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
                 disaster: {gameRes.disasters}
             </div>
             <div className='dice-roll-result-actions'>
-                {this.props.game.developements.isValidate(DevelopementType.Conduite) && !this.props.ui.diceRoll.isValidate() &&
-                    <Button onClick={this.rollAgain}>{this.state.rollOneMore ? 'Cancel' : 'Roll one again'}</Button>
+                {this.props.game.developements.isValidate(DevelopementType.Conduite) && !this.props.ui.diceRoll.isValidate() && !this.props.ui.diceRoll.hasRollOneMore &&
+                    <Button onClick={this.rollAgain}>{this.state.wantToRollOneMore ? 'Cancel' : 'Roll one again'}</Button>
                 }
                 {!this.props.ui.diceRoll.isValidate() && 
                     <Button onClick={this.validate}>Validate</Button>
@@ -81,7 +82,7 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
                 {diceRoll.dices.map((d, k) => <Dice 
                     key={k} 
                     dice={d} 
-                    rollOneMore={this.state.rollOneMore} 
+                    wantToRollOneMore={this.state.wantToRollOneMore}
                 />)}
             </div>
             <div className="dice-roll-zone-action">            

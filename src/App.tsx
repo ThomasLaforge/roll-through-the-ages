@@ -13,6 +13,8 @@ import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 
 import Game from './components/Game';
+import RoundCounter from './components/RoundCounter';
+import Scores from './components/Scores';
 import './styles/main.scss';
 
 @observer
@@ -38,6 +40,10 @@ class App extends React.Component<{}, { store: Store} > {
                 <Typography variant="title" color="inherit">
                   Roll Through The Ages
                 </Typography>
+                <div className='toolbar-round-counter'>
+                  <RoundCounter />
+                  <Scores />              
+                </div>  
               </Toolbar>
             </AppBar>
 

@@ -49,7 +49,7 @@ export class Building {
 	}
 
 	build(nbPartsBuilt: number = 1){
-		console.log('build', this.nbWorker, nbPartsBuilt)
+		// console.log('build', this.nbWorker, nbPartsBuilt)
 		this.nbWorker += nbPartsBuilt
 		if(this.nbWorker > this.nbNeededWorker){
 			this.nbWorker = this.nbNeededWorker

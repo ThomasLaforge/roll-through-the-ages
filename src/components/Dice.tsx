@@ -6,7 +6,7 @@ import {Dice as DiceModel, DiceFace} from '../modules/Dice'
 
 interface DiceProps extends DefaultProps {
     dice: DiceModel,
-    rollOneMore: boolean
+    wantToRollOneMore: boolean
 }
 
 interface DiceState {
@@ -36,11 +36,8 @@ export default class Dice extends React.Component<DiceProps, DiceState> {
             }
         }
         if(diceRoll.isOver() && !diceRoll.isValidate()){
-            if(this.props.rollOneMore){
-                this.props.dice.unFreeze()
-                this.props.dice.roll()
-                // this.props.onRollOneMore()
-                // this.props.ui.diceRoll.validate()
+            if(this.props.wantToRollOneMore && !this.props.ui.diceRoll.hasRollOneMore){
+                this.props.ui.diceRoll.rollOneAgain(this.props.dice)
             }
             else if(this.props.dice.isSwitchable()){
                 this.props.dice.switchSpecialFace()

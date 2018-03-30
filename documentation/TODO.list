@@ -1,3 +1,6 @@
 Remove name from monument and developement datas => add function who return name from type
 Create stock user interface
 Create global gold this turn including stock and gold from dice
+
+Router
+https://github.com/alisd23/mobx-react-router

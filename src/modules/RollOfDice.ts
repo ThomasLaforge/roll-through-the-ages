@@ -17,8 +17,9 @@ export class RollOfDice {
     @observable private _autoFinish: boolean;
 	@observable private _turn: number;
 	@observable private _validated: boolean;
+	@observable private _hasRollOneMore: boolean;
 
-    constructor(dices: Dice[] | number, autoFinish: boolean, turn = 1, validated = false){
+    constructor(dices: Dice[] | number, autoFinish: boolean, turn = 1, validated = false, hasRollOnMore = false){
 		if(!Array.isArray(dices)){
 			let i = dices
 			dices = []
@@ -27,7 +28,7 @@ export class RollOfDice {
 				i--
 			}
 		}
-        this.dices = dices 
+        this.dices = dices
 		this.autoFinish = autoFinish
 		this.turn = turn
 		this.validated = validated
@@ -65,6 +66,7 @@ export class RollOfDice {
     rollOneAgain(dice: Dice){
 		dice.unFreeze()
 		dice.roll()
+		this.hasRollOneMore = true
 	}
 	
 	isOver(){
@@ -110,6 +112,12 @@ export class RollOfDice {
 	}
 	public set validated(value: boolean) {
 		this._validated = value;
+	}
+	public get hasRollOneMore(): boolean {
+		return this._hasRollOneMore;
+	}
+	public set hasRollOneMore(value: boolean) {
+		this._hasRollOneMore = value;
 	}
 	
 }

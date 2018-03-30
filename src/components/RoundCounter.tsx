@@ -20,8 +20,8 @@ export default class RoundCounter extends React.Component<RoundCounterProps, Rou
     }
 
     render() {
-        return <div className='score'>
-            round: {this.props.game.round} / {NB_ROUND_TO_PLAY}
+        return <div className='round-counter'>
+            Round: {this.props.game.round} / {NB_ROUND_TO_PLAY}
         </div>
     }
 }

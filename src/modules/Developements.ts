@@ -33,7 +33,7 @@ export class Developement {
     @observable private _type: DevelopementType;
     @observable private _validate: boolean;
 
-    constructor(cost: number, points: number, definition: string, shortDescription: string, type: DevelopementType, validate = true){
+    constructor(cost: number, points: number, definition: string, shortDescription: string, type: DevelopementType, validate = false){
         this.cost = cost
         this.points = points
         this.definition = definition
@@ -153,6 +153,11 @@ export class Developements {
     getDevelopmentsScore(){
         return this.getDevelopmentsValidate().reduce( (sum, dev) => sum + dev.points, 0)
     }    
+
+    hasAtLeastOneDevBuyable(amount: number){
+        console.log('amount', amount)
+        return this.developements.filter(d => !d.validate && d.cost <= amount).length > 0
+    }
 
 	public get developements(): Developement[] {
 		return this._developements;

@@ -4,11 +4,11 @@ import * as _ from 'lodash'
 // imports
 import {City} from './City'
 import {Monuments, Building, BuildingType} from './Monuments'
-import {Developements, DevelopementType} from './Developements'
+import {Developements, DevelopementType, Developement} from './Developements'
 import {GlobalStock} from './GlobalStock'
 import {Stock} from './Stock'
 import {RollOfDiceResult, RollOfDice} from './RollOfDice'
-import {TasksInterface, GamePhase} from './RollTTAges'
+import {TasksInterface, GamePhase, NB_GAME_PHASE} from './RollTTAges'
 import { DiceFace } from './Dice';
 // -------
 
@@ -75,6 +75,9 @@ export class Game {
 
 	goToNextPhase(){
 		this.phase++
+		if(this.phase >= NB_GAME_PHASE){
+			this.phase = 0
+		}
 	}
 
 	step1(res: RollOfDiceGameResult){
@@ -84,32 +87,47 @@ export class Game {
 		}
 		
 		this.stock.foodStock.add(res.food)
-
-		this.goToNextPhase()	
+		this.goToNextPhase()
+		this.step2(res)
 	}
 
 	step2(res: RollOfDiceGameResult){	
 		this.nourrish()
 		this.handleDisaster(res.disasters)
+		this.goToNextPhase()	
+		if(res.workers === 0){
+			this.step3(res)
+		}
 	}
 
-	step3(tasks: TasksInterface, workerAmount: number){
+	step3(res: RollOfDiceGameResult){
 		// test worker amount
 		// build City
 		// build Monuments
+		this.goToNextPhase()
+		console.log('after build phase', this.developements.hasAtLeastOneDevBuyable(res.money + this.stock.maxGoldAccessible), res.money + this.stock.maxGoldAccessible)
+		if(!this.developements.hasAtLeastOneDevBuyable(res.money + this.stock.maxGoldAccessible)){
+			this.step4()
+		}
 	}
-
-	step4(devType: DevelopementType, money: any){
+	step4(moneyAccessible?: any, dev?: Developement){
 		// Pay : test money + resources
-
-		// validate dev
-		this.developements.getDev(devType).buy()
+		if(moneyAccessible && dev && moneyAccessible >= dev.cost){
+			dev.buy()
+		}
+		this.goToNextPhase()			
+		if(this.stock.isLegalAtEndOfTurn()){
+			this.step5()
+		}
+		
 	}
 
 	step5(resourceDiscard?: any){
 	// 	if(this.stock.isLegalAtEndOfTurn(resourceDiscard)){
 	// 		this.stock.discard(resourceDiscard)
 	// 	}
+		this.goToNextPhase()	
+	
 	}
 
 	getAmountOfMoneyFromDiceResult(res: RollOfDiceResult){
@@ -118,7 +136,11 @@ export class Game {
 	}
 
 	getAmountOfWorkerFromDiceResult(res: RollOfDiceResult){
-		return res.workers + res.dices.filter(d => d.currentFace === DiceFace.Worker || d.currentFace === DiceFace.FoodOrWorker_Worker).length 
+		let workerAmount = res.workers
+		if(this.developements.isValidate(DevelopementType.Maçonnerie)){
+			workerAmount +=  + res.dices.filter(d => d.currentFace === DiceFace.Worker || d.currentFace === DiceFace.FoodOrWorker_Worker).length 
+		}
+		return workerAmount
 	}
 
 	getAmountOfFoodFromDiceResult(res: RollOfDiceResult){

@@ -47,7 +47,7 @@ export class GlobalStock {
 	}
 	
 	isLegalAtEndOfTurn(){
-		return this.orderedResourcesStocks.reduce( (sum, s) => sum + s.position + 1 ,0) <= 6
+		return this.nbResources <= 6
 	}
 
 	addResources(quantity: number){
@@ -61,7 +61,15 @@ export class GlobalStock {
 
 	loseAllResources(){
 		this.orderedResourcesStocks.forEach(s => s.position = 0)
-    }
+	}
+
+	get maxGoldAccessible(){
+		return this.orderedResourcesStocks.reduce( (sum, s) => sum + s.value, 0)		
+	}
+
+	get nbResources(){
+		return this.orderedResourcesStocks.reduce( (sum, s) => sum + s.position, 0)
+	}
 
 	public get woodStock(): WoodStock {
 		return this._woodStock;

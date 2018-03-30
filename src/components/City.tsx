@@ -5,6 +5,7 @@ import {observer, inject} from 'mobx-react';
 import {City as CityModel} from '../modules/City'
 
 import Button from 'material-ui/Button'
+import { GamePhase } from '../modules/RollTTAges';
 
 interface CityProps extends DefaultProps {
 }
@@ -40,8 +41,12 @@ export default class City extends React.Component<CityProps, CityState> {
 
     render() {
         return <div className={'city'}>
-            {this.renderDistricts()}
-            {/* <Button onClick={() => {this.props.game.city.nbJobsDone++}}>Add</Button> */}
+            <div className='city-tilte'>
+                <h2>City</h2>
+            </div>
+            <div className='city-districts'>
+                {this.renderDistricts()}
+            </div>
         </div>
     }
 }
@@ -65,11 +70,17 @@ class District extends React.Component<DistrictProps, DistrictState> {
         };
     }
 
+    onClick = () => {
+        if(this.props.ui.availableWorkers > 0 && this.props.game.phase === GamePhase.Phase_3_City_And_Monuments && !this.props.game.city.isTotallyBuilt()){
+            this.props.ui.buyBuilding()
+        }
+    }
+
     render() {
         const districtDone = !this.props.maxWorks || this.props.maxWorks === this.props.worksDone
         const districtDoneClass = districtDone ? ' district-done' : ''
 
-        return <div className={'district' + districtDoneClass}>
+        return <div className={'district' + districtDoneClass} onClick={this.onClick}>
             {this.props.maxWorks && 
                 <div className="district-population">
                     {this.props.worksDone || 0} / {this.props.maxWorks}

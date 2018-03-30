@@ -22,7 +22,15 @@ export class City {
         }
         
         return nbDice
-    }
+	}
+	
+	isTotallyBuilt(){
+		return this.getNbDiceAccessible() === this.maxDices
+	}
+
+	build(){
+		this.nbJobsDone++
+	}
 
 	public get nbJobsDone(): number {
 		return this._nbJobsDone;

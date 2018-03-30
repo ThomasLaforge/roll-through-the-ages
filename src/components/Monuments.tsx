@@ -54,11 +54,22 @@ class Building extends React.Component<BuildingProps, BuildingState> {
         };
     }
 
+    onClick = () => {
+        if(this.props.ui.availableWorkers){
+            if(!this.props.building.isBuilt()){
+                this.props.ui.buyBuilding(this.props.building)
+            }
+            else{
+                console.log('try to build an already built monument')
+            }
+        }
+    }
+
     render() {
         let b = this.props.building
         let BuildingDoneClass = b.isBuilt() ? ' building-done' : ''
 
-        return <div className={'building' + BuildingDoneClass} onClick={() => this.props.building.build()}>
+        return <div className={'building' + BuildingDoneClass} onClick={this.onClick}>
             <div className='building-name'>{b.name + ' (' + b.points + ')'}</div>
             {b && b.nbNeededWorker && 
                 <div className="building-population">
