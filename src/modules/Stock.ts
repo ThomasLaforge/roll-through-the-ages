@@ -28,6 +28,10 @@ export abstract class Stock {
         }
     }
 
+    reset(){
+        this.position = 0
+    }
+
     isFull(){
         return this.position === this.maxPos
     }

@@ -8,8 +8,9 @@ import {Developements, DevelopementType, Developement} from './Developements'
 import {GlobalStock} from './GlobalStock'
 import {Stock} from './Stock'
 import {RollOfDiceResult, RollOfDice} from './RollOfDice'
-import {TasksInterface, GamePhase, NB_GAME_PHASE} from './RollTTAges'
+import {TasksInterface, GamePhase, NB_GAME_PHASE, NB_ROUND_TO_PLAY} from './RollTTAges'
 import { DiceFace } from './Dice';
+import {UIStore} from './Store'
 // -------
 
 export interface RollOfDiceGameResult extends RollOfDiceResult {}
@@ -28,6 +29,7 @@ export class Game {
 	@observable private _stock: GlobalStock;
 	@observable private _round: number;
 	@observable private _phase: GamePhase;
+	@observable public ui: UIStore;
     // @observable private _diceCollection: number;
 
 	constructor(city = new City(), monuments = new Monuments(), developements = new Developements(), stock = new GlobalStock(), disasterCounter = 0, round = 1, phase = GamePhase.Phase_1_Dices){
@@ -77,6 +79,7 @@ export class Game {
 		this.phase++
 		if(this.phase >= NB_GAME_PHASE){
 			this.phase = 0
+			this.round++
 		}
 	}
 
@@ -94,8 +97,12 @@ export class Game {
 	step2(res: RollOfDiceGameResult){	
 		this.nourrish()
 		this.handleDisaster(res.disasters)
-		this.goToNextPhase()	
-		if(res.workers === 0){
+		this.goToNextPhase()
+		let workerAccessible = res.workers
+		if(this.developements.isValidate(DevelopementType.Ingénierie)){
+			workerAccessible += this.stock.stoneStock.position * 3
+		}
+		if(workerAccessible === 0){
 			this.step3(res)
 		}
 	}
@@ -105,8 +112,13 @@ export class Game {
 		// build City
 		// build Monuments
 		this.goToNextPhase()
-		console.log('after build phase', this.developements.hasAtLeastOneDevBuyable(res.money + this.stock.maxGoldAccessible), res.money + this.stock.maxGoldAccessible)
-		if(!this.developements.hasAtLeastOneDevBuyable(res.money + this.stock.maxGoldAccessible)){
+		// console.log('after build phase', this.developements.hasAtLeastOneDevBuyable(res.money + this.stock.maxGoldAccessible), res.money + this.stock.maxGoldAccessible)
+		let moneyAccessible = res.money + this.stock.maxGoldAccessible
+		if(this.developements.isValidate(DevelopementType.Greniers)){
+			moneyAccessible += this.stock.foodStock.position * 4 
+		}
+		
+		if(!this.developements.hasAtLeastOneDevBuyable(moneyAccessible)){
 			this.step4()
 		}
 	}
@@ -116,7 +128,7 @@ export class Game {
 			dev.buy()
 		}
 		this.goToNextPhase()			
-		if(this.stock.isLegalAtEndOfTurn()){
+		if(this.developements.isValidate(DevelopementType.Caravanes) || this.stock.isLegalAtEndOfTurn()){
 			this.step5()
 		}
 		
@@ -126,8 +138,8 @@ export class Game {
 	// 	if(this.stock.isLegalAtEndOfTurn(resourceDiscard)){
 	// 		this.stock.discard(resourceDiscard)
 	// 	}
-		this.goToNextPhase()	
-	
+		this.goToNextPhase()
+		this.ui.reset()
 	}
 
 	getAmountOfMoneyFromDiceResult(res: RollOfDiceResult){
@@ -185,6 +197,10 @@ export class Game {
 		// desastres
 		score -= this.disasterCounter
 		return score
+	}
+
+	isOver(){
+		return this.round === 2//NB_ROUND_TO_PLAY
 	}
 
     // Getters / Setters

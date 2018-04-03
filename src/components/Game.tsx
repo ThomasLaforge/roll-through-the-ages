@@ -32,6 +32,16 @@ class Game extends React.Component <GameProps, GameState> {
         }
     }
 
+    handleEndTurn = () => {
+        if(this.props.game.stock.isLegalAtEndOfTurn()){
+            this.props.game.step5()
+        }
+        else {
+            throw "try to end turn but not working";
+            
+        }
+    }
+
     render() {
         let game = this.props.game
         
@@ -63,12 +73,20 @@ class Game extends React.Component <GameProps, GameState> {
                     }
                     {game.phase === GamePhase.Phase_4_Developement && 
                         <div>
-                            Gold : {this.props.ui.availableMoney}
+                            Gold : {this.props.ui.currentMoney}
+                            <Button onClick={() => this.props.game.step4()}>Skip</Button>
                         </div>
+                        
                     }
-                    {game.phase === GamePhase.Phase_5_Disacard_Resources && 
+                    {game.phase === GamePhase.Phase_5_Discard_Resources && 
                         <div>
                             stock size: {game.stock.nbResources}
+                            <Button 
+                                disabled={!game.stock.isLegalAtEndOfTurn()}
+                                onClick={this.handleEndTurn}
+                            >
+                                End turn
+                            </Button>
                         </div>
                     }
                 </div>

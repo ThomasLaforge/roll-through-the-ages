@@ -26,10 +26,6 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
         };
     }
 
-    componentWillReceiveProps(newProps){
-        console.log('newProps', newProps)
-    }
-
     get diceRoll(){
         return this.props.ui.diceRoll
     }
@@ -37,7 +33,6 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
     roll = () => {
         let diceRoll = this.props.ui.diceRoll
         diceRoll.roll()
-        // if(diceRoll.)
     }
 
     validate = () => {
@@ -78,18 +73,63 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
         let diceRoll = this.props.ui.diceRoll
 
         return <div className="dice-roll-zone">
-            <div className="dice-roll-zone-dices">
-                {diceRoll.dices.map((d, k) => <Dice 
-                    key={k} 
-                    dice={d} 
-                    wantToRollOneMore={this.state.wantToRollOneMore}
-                />)}
+            <div className='dice-roll'>
+                <div className="dice-roll-zone-dices">
+                    {diceRoll.dices.map((d, k) => <Dice 
+                        key={k} 
+                        dice={d} 
+                        wantToRollOneMore={this.state.wantToRollOneMore}
+                    />)}
+                </div>
+                <div className="dice-roll-zone-action">            
+                    {!diceRoll.isOver() && <Button onClick={this.roll}>Roll</Button>}
+                </div>
+                <div className="dice-roll-zone-results">            
+                    {diceRoll.isOver() && this.renderResults()}
+                </div>
             </div>
-            <div className="dice-roll-zone-action">            
-                {!diceRoll.isOver() && <Button onClick={this.roll}>Roll</Button>}
-            </div>
-            <div className="dice-roll-zone-results">            
-                {diceRoll.isOver() && this.renderResults()}
+            <div className='disasters-help'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cause</th>
+                            <th>Résultat</th>
+                            <th>Effet</th> 
+                        </tr>
+                    </thead>                    
+                    <tbody>
+                        <tr>
+                            <td>Pas de nourriture</td>
+                            <td>Famine</td>
+                            <td>-1 pt (par ville)</td>
+                        </tr>
+                        <tr>
+                            <td>1 Crâne</td>
+                            <td>Aucune</td>
+                            <td>Pas d’effet</td>
+                        </tr>
+                        <tr>
+                            <td>2 Crâne</td>
+                            <td>Sécheresse</td>
+                            <td>-2 pts</td>
+                        </tr>
+                        <tr>
+                            <td>3 Crâne</td>
+                            <td>Peste</td>
+                            <td>-3 pts</td>
+                        </tr>
+                        <tr>
+                            <td>4 Crâne</td>
+                            <td>Invasion</td>
+                            <td>-4 pts</td>
+                        </tr>
+                        <tr>
+                            <td>5+ Crâne</td>
+                            <td>Révolte</td>
+                            <td>Perte toutes marchandises</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     }

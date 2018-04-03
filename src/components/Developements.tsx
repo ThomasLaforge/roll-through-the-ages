@@ -57,7 +57,7 @@ class Dev extends React.Component<DevProps, DevState> {
     }
 
     tryToBuy = () => {
-        this.props.game.step4(this.props.ui.availableMoney, this.props.dev)
+        this.props.game.step4(this.props.ui.currentMoney, this.props.dev)
     }
 
     render() {
@@ -74,7 +74,7 @@ class Dev extends React.Component<DevProps, DevState> {
                             onChange={this.tryToBuy}
                             value={dev.cost + ' : ' + dev.definition}
                             color="primary"
-                            disabled={dev.validate || dev.cost > this.props.ui.availableMoney}
+                            disabled={dev.validate || dev.cost > this.props.ui.currentMoney}
                         />
                     }
                     label={dev.cost + ' - ' + dev.name + ' (' + dev.points + ') : ' + dev.shortDescription}

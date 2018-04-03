@@ -18,7 +18,7 @@ export enum GamePhase {
     Phase_2_Food_And_Disasters,
     Phase_3_City_And_Monuments,
     Phase_4_Developement,
-    Phase_5_Disacard_Resources
+    Phase_5_Discard_Resources
 }
 
 export class Stringifier {
@@ -33,7 +33,7 @@ export class Stringifier {
                 return 'City and monuments'
             case GamePhase.Phase_4_Developement:
                 return 'Developement'
-            case GamePhase.Phase_5_Disacard_Resources:
+            case GamePhase.Phase_5_Discard_Resources:
                 return 'Disacard resources'
             default:
                 throw "GamePhase has no name";
@@ -50,7 +50,7 @@ export class Stringifier {
                 return 'Construire les villes et/ou les monuments'
             case GamePhase.Phase_4_Developement:
                 return 'Acheter au maximum un développement'
-            case GamePhase.Phase_5_Disacard_Resources:
+            case GamePhase.Phase_5_Discard_Resources:
                 return 'Défausser les marchandises au-delà de six'
             default:
                 throw "GamePhase has no description";

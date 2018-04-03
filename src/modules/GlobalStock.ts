@@ -64,7 +64,7 @@ export class GlobalStock {
 	}
 
 	get maxGoldAccessible(){
-		return this.orderedResourcesStocks.reduce( (sum, s) => sum + s.value, 0)		
+		return this.orderedResourcesStocks.reduce( (sum, s) => sum + s.value, 0)	
 	}
 
 	get nbResources(){

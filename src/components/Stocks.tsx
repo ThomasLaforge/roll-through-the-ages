@@ -6,6 +6,8 @@ import {GlobalStock as GlobalStockModel} from '../modules/GlobalStock'
 import {Stock as StockModel} from '../modules/Stock'
 
 import Button from 'material-ui/Button'
+import { GamePhase } from '../modules/RollTTAges';
+import { DevelopementType } from '../modules/Developements';
 
 interface GlobalStockProps extends DefaultProps {
 }
@@ -59,6 +61,42 @@ class IndividualStock extends React.Component<IndividualStockProps, IndividualSt
         };
     }
 
+    onClick = () => {
+        if(this.props.game.phase === GamePhase.Phase_4_Developement){
+            this.transformResourceOnGold()
+        }
+        if(this.props.game.phase === GamePhase.Phase_5_Discard_Resources){
+            this.discardResource()
+        }
+        if(
+            this.props.game.phase === GamePhase.Phase_3_City_And_Monuments 
+            && this.props.game.developements.isValidate(DevelopementType.Ingénierie)
+            && this.props.stock.constructor.name === 'StoneStock'
+            && !this.props.stock.isEmpty()
+        ){
+            this.props.stock.lose()
+            this.props.ui.devWorkers += 3
+        }
+    }
+
+    transformResourceOnGold(){
+        console.log('stock type clicked', this.props.stock.constructor.name)
+        if(this.props.stock.constructor.name === 'FoodStock' && this.props.game.developements.isValidate(DevelopementType.Greniers) && !this.props.stock.isEmpty()){
+            this.props.stock.lose()
+            this.props.ui.resourcesMoney += 4
+        }
+        else {
+            let val = this.props.stock.value
+            this.props.ui.resourcesMoney += val
+            this.props.stock.reset()
+            this.setState({selected: true})
+        }
+    }
+
+    discardResource(){
+        this.props.stock.lose()
+    }
+
     renderLine(){
         let line = []
         for(let i = 0; i <= this.props.stock.maxPos; i++){
@@ -72,22 +110,14 @@ class IndividualStock extends React.Component<IndividualStockProps, IndividualSt
             )
         }
         
-        return <div className='line'>
+        return <div className='line' onClick={this.onClick}>
             {line}
         </div>
     }
 
-    onSelect = () => {
-        console.log('select a stock line')
-        
-        this.setState({selected: !this.state.selected })
-    }
-
     render() {
         let stock = this.props.stock
-        return <div className={'individual-stock individual-stock-' + this.props.stock.constructor.name}
-            onClick={this.onSelect}    
-        >
+        return <div className={'individual-stock individual-stock-' + this.props.stock.constructor.name}>
             {/* type: {stock.constructor.name }, length : {stock.maxPos}, current: {stock.position} */}
             {this.renderLine()}
         </div>

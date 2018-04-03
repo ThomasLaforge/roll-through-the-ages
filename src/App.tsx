@@ -13,6 +13,7 @@ import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 
 import Game from './components/Game';
+import EndGame from './components/EndGame';
 import RoundCounter from './components/RoundCounter';
 import Scores from './components/Scores';
 import './styles/main.scss';
@@ -30,7 +31,7 @@ class App extends React.Component<{}, { store: Store} > {
   render() {
     return (
       <Provider store={this.state.store} >
-          <div className="App">
+          <div className="app">
           {/* https://codesandbox.io/s/kk2889j305 */}
             <AppBar position="static">
               <Toolbar>
@@ -47,7 +48,7 @@ class App extends React.Component<{}, { store: Store} > {
               </Toolbar>
             </AppBar>
 
-            <Game />
+            {this.state.store.gameStore.isOver() ? <EndGame /> : <Game />}
           </div>
       </Provider>
     );

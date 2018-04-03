@@ -13,12 +13,21 @@ export class UIStore {
 	@observable private _game: Game;
 	@observable private _nbWorkerUsed: number;
 	@observable private _nbMoneyUsed: number;
-	
+	@observable resourcesMoney: number;
+	@observable devWorkers: number;
+
     constructor(game: Game){
 		this.game = game
-		this.diceRoll = new RollOfDice(game.getNbDices(), true/* game.developements.isValidate(DevelopementType.Conduite) */);
+		this.reset()
+	}
+
+	reset(){
+		this.diceRoll = new RollOfDice(this.game.getNbDices(), !this.game.developements.isValidate(DevelopementType.Conduite));
+		console.log('diceroll, turn', this.diceRoll.turn)
 		this.nbWorkerUsed = 0
 		this.nbMoneyUsed = 0
+		this.resourcesMoney = 0
+		this.devWorkers = 0
 	}
 
 	get result(){
@@ -26,11 +35,11 @@ export class UIStore {
 	}
 
 	get currentMoney(){
-		return this.result.money
+		return this.result.money + this.resourcesMoney
 	}
 
 	get availableWorkers(){
-		return this.result.workers - this.nbWorkerUsed
+		return this.result.workers + this.devWorkers - this.nbWorkerUsed
 	}
 	get availableMoney(){
 		return this.result.money - this.nbMoneyUsed
@@ -93,7 +102,8 @@ export class Store {
 
     constructor(){
         this.gameStore = new Game()
-        this.uiStore = new UIStore(this.gameStore)
+		this.uiStore = new UIStore(this.gameStore)
+		this.gameStore.ui = this.uiStore
     }
 
 	public get uiStore(): UIStore {
