@@ -77,6 +77,27 @@ export class Building {
 		}
 	}
 
+	get cssClassName(){
+		switch (this.type) {
+			case BuildingType.Accropole:
+				return "accropole"
+			case BuildingType.PyramideduLouvre:
+				return "pyramide-louvre"
+			case BuildingType.EgliseDeRome:
+				return "eglise-rome"
+			case BuildingType.MurailleDeChine:
+				return "muraille-chine"
+			case BuildingType.Obelisque:
+				return "obelisque"
+			case BuildingType.Cathédrale:
+				return "cathedrale"
+			case BuildingType.PyramideEgypte:
+				return "pyramide-egypte"		
+			default:
+				throw Error('type correspond to any name')
+		}
+	}
+
 	public get points(): number {
 		return this._points;
 	}

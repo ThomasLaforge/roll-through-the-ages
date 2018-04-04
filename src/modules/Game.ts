@@ -33,13 +33,20 @@ export class Game {
     // @observable private _diceCollection: number;
 
 	constructor(city = new City(), monuments = new Monuments(), developements = new Developements(), stock = new GlobalStock(), disasterCounter = 0, round = 1, phase = GamePhase.Phase_1_Dices){
-        this.city = city
+        this.init(city, monuments, developements, stock, disasterCounter, round, phase)
+	}
+
+	init(city = new City(), monuments = new Monuments(), developements = new Developements(), stock = new GlobalStock(), disasterCounter = 0, round = 1, phase = GamePhase.Phase_1_Dices){
+		this.city = city
         this.monuments = monuments
         this.developements = developements
 		this.disasterCounter = disasterCounter
 		this.stock = stock
 		this.round = round
 		this.phase = phase
+	}
+	reset(){
+		this.init()
 	}
 
 	getNbDices(){
@@ -186,12 +193,20 @@ export class Game {
 		})
 	}
 
+	getDevelopmentsScore(){
+		return this.developements.getDevelopmentsScore()
+	}
+
+	getMonumentsScore(){
+		return this.monuments.getBuildingsScore()
+	}
+
 	get score(){
 		let score = 0
 		// developements
-		score += this.developements.getDevelopmentsScore()
+		score += this.getDevelopmentsScore()
 		// monuments
-		score += this.monuments.getBuildingsScore()
+		score += this.getMonumentsScore()
 		// bonus
 		score += this.getBonusScore()
 		// desastres
@@ -200,7 +215,7 @@ export class Game {
 	}
 
 	isOver(){
-		return this.round === 2//NB_ROUND_TO_PLAY
+		return this.round > NB_ROUND_TO_PLAY
 	}
 
     // Getters / Setters
@@ -246,11 +261,5 @@ export class Game {
 	public set phase(value: GamePhase) {
 		this._phase = value;
 	}
-	// public get diceCollection(): number {
-	// 	return this._diceCollection;
-	// }
-	// public set diceCollection(value: number) {
-	// 	this._diceCollection = value;
-	// }
     
 }

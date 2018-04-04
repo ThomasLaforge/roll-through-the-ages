@@ -15,6 +15,7 @@ import HelpAndInfos from './HelpAndInfos'
 
 import Stepper, { Step, StepLabel } from 'material-ui/Stepper';
 import Button from 'material-ui/Button';
+import Paper from 'material-ui/Paper';
 
 
 interface GameProps extends DefaultProps {
@@ -47,41 +48,56 @@ class Game extends React.Component <GameProps, GameState> {
         
         return (
             <div className="game">
-                {/* <HelpAndInfos /> */}
-                {/* <Scores /> */}
-                <div className='game-main-zone'>
-                    <div className='game-phase'>
-                        <div className='game-phase-stepper'>
-                            <Stepper activeStep={game.phase}>
-                            {Object.keys(GamePhase).map(key => GamePhase[key]).filter(v => typeof v !== "string").map((index) =>
-                                <Step key={index}>
-                                    <StepLabel>{Stringifier.getGamePhaseName(index)}</StepLabel>
-                                </Step>
-                            )}
-                            </Stepper>
-                        </div>
-                        <div className='game-phase-current-desciption'>
-                            {Stringifier.getGamePhaseDescription(game.phase)}
-                        </div>
-                        {/* <Button onClick={() => game.goToNextPhase()}>Increase Phase</Button> */}
+                {/* <Button onClick={() => this.props.game.undo()}>Undo</Button> */}
+                {/* <Button onClick={() => this.props.game.redo()}>Undo</Button> */}
+                <div className='game-phase'>
+                    <div className='game-phase-stepper'>
+                        <Stepper activeStep={game.phase}>
+                        {Object.keys(GamePhase).map(key => GamePhase[key]).filter(v => typeof v !== "string").map((index, i) =>
+                            <Step key={index} title={game.phase !== i ? Stringifier.getGamePhaseDescription(index) : ''}>
+                                <StepLabel>{Stringifier.getGamePhaseName(index)}</StepLabel>
+                            </Step>
+                        )}
+                        </Stepper>
                     </div>
+                    <div className='game-phase-current-desciption'>
+                        {Stringifier.getGamePhaseDescription(game.phase)}
+                    </div>
+                    {/* <Button onClick={() => game.goToNextPhase()}>Increase Phase</Button> */}
+                </div>
+                <div className='game-main-zone'>
                     {game.phase === GamePhase.Phase_1_Dices && <DiceZone />}
                     {game.phase === GamePhase.Phase_3_City_And_Monuments && 
-                        <div>
-                            Free Workers : {this.props.ui.availableWorkers}
+                        <div className='game-phase-3'>
+                            <div className='still-to-use'>
+                                {this.props.ui.availableWorkers}
+                            </div>
                         </div>
                     }
                     {game.phase === GamePhase.Phase_4_Developement && 
-                        <div>
-                            Gold : {this.props.ui.currentMoney}
-                            <Button onClick={() => this.props.game.step4()}>Skip</Button>
+                        <div className='game-phase-4'>
+                            <div className='still-to-use'>                        
+                                {this.props.ui.currentMoney}
+                            </div>
+                            <Button 
+                                className='game-phase-4-btn'
+                                variant="raised" 
+                                color="primary"
+                                onClick={() => this.props.game.step4()}
+                            >
+                                Skip
+                            </Button>
                         </div>
                         
                     }
                     {game.phase === GamePhase.Phase_5_Discard_Resources && 
-                        <div>
-                            stock size: {game.stock.nbResources}
-                            <Button 
+                        <div className='game-phase-5'>
+                            <div className={'resources-stock-size resources-stock-size-' + (game.stock.isLegalAtEndOfTurn() ? 'ok' : 'not-ok')}>
+                                {game.stock.nbResources}
+                            </div>
+                            <Button
+                                variant="raised" 
+                                color="primary"
                                 disabled={!game.stock.isLegalAtEndOfTurn()}
                                 onClick={this.handleEndTurn}
                             >
@@ -92,10 +108,10 @@ class Game extends React.Component <GameProps, GameState> {
                 </div>
                 <div className='game-parts'>
                     <div className='game-parts-elt'>                
+                        <City />                                
                         <Stocks />
                     </div>
                     <div className='game-parts-elt'>
-                        <City />                                
                         <Monuments />
                     </div>
                     <div className='game-parts-elt'>                

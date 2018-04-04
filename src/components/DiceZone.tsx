@@ -51,19 +51,23 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
         const gameRes = this.props.game.getResult(res)
 
         return <div className="dice-roll-result">
-            <div className='dice-roll-result-description'>
+            {/* <div className='dice-roll-result-description'>
                 food: {gameRes.food}, 
                 money: {gameRes.money},
                 resource: {gameRes.resources},
                 worker: {gameRes.workers},
                 disaster: {gameRes.disasters}
-            </div>
+            </div> */}
             <div className='dice-roll-result-actions'>
-                {this.props.game.developements.isValidate(DevelopementType.Conduite) && !this.props.ui.diceRoll.isValidate() && !this.props.ui.diceRoll.hasRollOneMore &&
-                    <Button onClick={this.rollAgain}>{this.state.wantToRollOneMore ? 'Cancel' : 'Roll one again'}</Button>
-                }
-                {!this.props.ui.diceRoll.isValidate() && 
-                    <Button onClick={this.validate}>Validate</Button>
+                {this.props.game.developements.isValidate(DevelopementType.Conduite) && this.props.ui.diceRoll.isOver() &&
+                    <Button 
+                        variant="raised" 
+                        color="primary" 
+                        className={'dice-roll-button'}
+                        onClick={this.rollAgain}
+                    >
+                        {this.state.wantToRollOneMore ? 'Cancel' : 'Roll one again'}
+                    </Button>
                 }
             </div>
         </div>
@@ -74,20 +78,44 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
 
         return <div className="dice-roll-zone">
             <div className='dice-roll'>
+                <div className='dice-roll-counter'>
+                    Lancé {this.props.ui.diceRoll.turn} / 3
+                </div>
                 <div className="dice-roll-zone-dices">
-                    {diceRoll.dices.map((d, k) => <Dice 
-                        key={k} 
-                        dice={d} 
-                        wantToRollOneMore={this.state.wantToRollOneMore}
-                    />)}
+                    {diceRoll.dices.map((d, k) => 
+                        <div key={k} className="dice-roll-zone-dices-elt">
+                            <Dice 
+                                dice={d} 
+                                wantToRollOneMore={this.state.wantToRollOneMore}
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className="dice-roll-zone-action">            
-                    {!diceRoll.isOver() && <Button onClick={this.roll}>Roll</Button>}
+                    {!diceRoll.isOver() && 
+                        <Button 
+                            variant="raised" 
+                            color="primary" 
+                            className={'dice-roll-button'}
+                            onClick={this.roll}
+                        >
+                            Roll
+                        </Button>
+                    }
+                    <Button 
+                        variant="raised" 
+                        color="primary" 
+                        className={'dice-roll-button'}
+                        onClick={this.validate}
+                    >
+                        Validate
+                    </Button>
                 </div>
-                <div className="dice-roll-zone-results">            
+                {/* <div className="dice-roll-zone-results">            
                     {diceRoll.isOver() && this.renderResults()}
-                </div>
+                </div> */}
             </div>
+            
             <div className='disasters-help'>
                 <table>
                     <thead>

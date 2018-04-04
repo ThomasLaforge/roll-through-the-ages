@@ -29,8 +29,8 @@ export default class Developements extends React.Component<DevelopementsProp, De
     }
 
     render() {
-        return <div className={'Developements'}>
-            <h2>Developements</h2>
+        return <div className={'developements'}>
+            <h2 className={'developements-title'}>Developements</h2>
             {this.renderDevelopements()}
             {/* <Button onClick={() => {this.props.game.Developements.nbJobsDone++}}>Add</Button> */}
         </div>

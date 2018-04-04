@@ -70,7 +70,7 @@ export class RollOfDice {
 	}
 	
 	isOver(){
-		return this.turn === 3 && this.autoFinish || this.turn === 4
+		return this.turn === 3
 	}
 
 	needResolution(){

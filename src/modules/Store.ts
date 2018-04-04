@@ -6,7 +6,7 @@ import { Developement, DevelopementType } from './Developements';
 import {GamePhase} from './RollTTAges'
 import {Building} from './Monuments'
 import {City} from './City'
-
+import {History} from './History'
 
 export class UIStore {
 	@observable private _diceRoll: RollOfDice;
@@ -23,7 +23,6 @@ export class UIStore {
 
 	reset(){
 		this.diceRoll = new RollOfDice(this.game.getNbDices(), !this.game.developements.isValidate(DevelopementType.Conduite));
-		console.log('diceroll, turn', this.diceRoll.turn)
 		this.nbWorkerUsed = 0
 		this.nbMoneyUsed = 0
 		this.resourcesMoney = 0
@@ -99,11 +98,13 @@ export class Store {
 
     @observable private _uiStore: UIStore;
     @observable private _gameStore: Game;
+    @observable private _history: History;
 
     constructor(){
         this.gameStore = new Game()
 		this.uiStore = new UIStore(this.gameStore)
 		this.gameStore.ui = this.uiStore
+		this.history = new History()
     }
 
 	public get uiStore(): UIStore {
@@ -118,6 +119,11 @@ export class Store {
 	public set gameStore(value: Game) {
 		this._gameStore = value;
 	}
-    
+	public get history(): History {
+		return this._history;
+	}
+	public set history(value: History) {
+		this._history = value;
+	}
 
 }

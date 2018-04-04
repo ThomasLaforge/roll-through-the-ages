@@ -3,7 +3,7 @@ import { DefaultProps, injector } from '../lib/mobxInjector'
 import {observer, inject} from 'mobx-react';
 
 import {Monuments as MonumentsModel, Building as BuildingModel} from '../modules/Monuments'
-
+import {GamePhase} from '../modules/RollTTAges'
 import Button from 'material-ui/Button'
 
 interface MonumentsProps extends DefaultProps {
@@ -29,7 +29,9 @@ export default class Monuments extends React.Component<MonumentsProps, Monuments
     render() {
         return <div className={'monuments'}>
             <h2>Monuments</h2>
-            {this.renderMonuments()}
+            <div className='building-list'>
+                {this.renderMonuments()}
+            </div>
             {/* <Button onClick={() => {this.props.game.Monuments.nbJobsDone++}}>Add</Button> */}
         </div>
     }
@@ -55,7 +57,7 @@ class Building extends React.Component<BuildingProps, BuildingState> {
     }
 
     onClick = () => {
-        if(this.props.ui.availableWorkers){
+        if(this.props.game.phase === GamePhase.Phase_3_City_And_Monuments && this.props.ui.availableWorkers){
             if(!this.props.building.isBuilt()){
                 this.props.ui.buyBuilding(this.props.building)
             }
@@ -70,6 +72,7 @@ class Building extends React.Component<BuildingProps, BuildingState> {
         let BuildingDoneClass = b.isBuilt() ? ' building-done' : ''
 
         return <div className={'building' + BuildingDoneClass} onClick={this.onClick}>
+            <div className={'building-img building-img-' + b.cssClassName}/>
             <div className='building-name'>{b.name + ' (' + b.points + ')'}</div>
             {b && b.nbNeededWorker && 
                 <div className="building-population">
