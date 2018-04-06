@@ -215,6 +215,7 @@ export class Game {
 	}
 
 	isOver(){
+		// return this.round > 1
 		return this.round > NB_ROUND_TO_PLAY
 	}
 

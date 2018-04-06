@@ -72,6 +72,14 @@ class Game extends React.Component <GameProps, GameState> {
                             <div className='still-to-use'>
                                 {this.props.ui.availableWorkers}
                             </div>
+                            <Button 
+                                className='game-phase-3-btn'
+                                variant="raised" 
+                                color="primary"
+                                onClick={() => this.props.game.step3(this.props.ui.result)}
+                            >
+                                Skip
+                            </Button>
                         </div>
                     }
                     {game.phase === GamePhase.Phase_4_Developement && 

@@ -9,11 +9,11 @@ export interface InjectedStores {
 export interface DefaultProps {
     game?: Game
     ui?: UIStore
-    history?: History
+    store?: Store
 }
 
 export const injector = (injectContent: InjectedStores) : DefaultProps => ({
     game: injectContent.store.gameStore as Game,
     ui: injectContent.store.uiStore as UIStore,
-    history: injectContent.store.history as History,
+    store: injectContent.store
 })

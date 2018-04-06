@@ -35,6 +35,14 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
         diceRoll.roll()
     }
 
+    stop = () => {
+        this.props.ui.diceRoll.stop()
+        if(!this.props.ui.diceRoll.needResolution() && !this.props.game.developements.isValidate(DevelopementType.Conduite) ){
+            let gameResult = this.props.game.getResult(this.props.ui.diceRoll.getResult())
+            this.props.game.step1(gameResult)
+        }
+    }
+
     validate = () => {
         this.props.ui.diceRoll.validate()
         let gameResult = this.props.game.getResult(this.props.ui.diceRoll.getResult())
@@ -58,18 +66,6 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
                 worker: {gameRes.workers},
                 disaster: {gameRes.disasters}
             </div> */}
-            <div className='dice-roll-result-actions'>
-                {this.props.game.developements.isValidate(DevelopementType.Conduite) && this.props.ui.diceRoll.isOver() &&
-                    <Button 
-                        variant="raised" 
-                        color="primary" 
-                        className={'dice-roll-button'}
-                        onClick={this.rollAgain}
-                    >
-                        {this.state.wantToRollOneMore ? 'Cancel' : 'Roll one again'}
-                    </Button>
-                }
-            </div>
         </div>
     }
 
@@ -91,7 +87,7 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
                         </div>
                     )}
                 </div>
-                <div className="dice-roll-zone-action">            
+                <div className="dice-roll-zone-action">        
                     {!diceRoll.isOver() && 
                         <Button 
                             variant="raised" 
@@ -102,14 +98,36 @@ export default class DiceZone extends React.Component<DiceZoneProps, DiceZoneSta
                             Roll
                         </Button>
                     }
-                    <Button 
-                        variant="raised" 
-                        color="primary" 
-                        className={'dice-roll-button'}
-                        onClick={this.validate}
-                    >
-                        Validate
-                    </Button>
+                    {!diceRoll.isOver() && 
+                        <Button 
+                            variant="raised" 
+                            color="primary" 
+                            className={'dice-roll-button'}
+                            onClick={this.stop}
+                        >
+                            Stop
+                        </Button>
+                    }
+                    {this.props.game.developements.isValidate(DevelopementType.Conduite) && diceRoll.isOver() && !diceRoll.hasRollOneMore && 
+                        <Button 
+                            variant="raised" 
+                            color="primary" 
+                            className={'dice-roll-button'}
+                            onClick={this.rollAgain}
+                        >
+                            {this.state.wantToRollOneMore ? 'Cancel' : 'Roll one again'}
+                        </Button>
+                    }
+                    {diceRoll.isOver() &&
+                        <Button 
+                            variant="raised" 
+                            color="primary" 
+                            className={'dice-roll-button'}
+                            onClick={this.validate}
+                        >
+                            Finish
+                        </Button>
+                    }
                 </div>
                 {/* <div className="dice-roll-zone-results">            
                     {diceRoll.isOver() && this.renderResults()}

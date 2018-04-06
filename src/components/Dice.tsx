@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DefaultProps, injector } from '../lib/mobxInjector'
 import {observer, inject} from 'mobx-react';
 
+import {DevelopementType} from '../modules/Developements'
 import {Dice as DiceModel, DiceFace} from '../modules/Dice'
 
 interface DiceProps extends DefaultProps {
@@ -37,6 +38,7 @@ export default class Dice extends React.Component<DiceProps, DiceState> {
         }
         if(diceRoll.isOver() && !diceRoll.isValidate()){
             if(this.props.wantToRollOneMore && !this.props.ui.diceRoll.hasRollOneMore){
+                console.log('Dice:roll one again')
                 this.props.ui.diceRoll.rollOneAgain(this.props.dice)
             }
             else if(this.props.dice.isSwitchable()){

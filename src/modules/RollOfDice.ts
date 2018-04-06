@@ -89,6 +89,10 @@ export class RollOfDice {
 		return this.validated
 	}
 
+	stop(){
+		this.turn = 3
+	}
+
 	public get dices(): Dice[] {
 		return this._dices;
 	}

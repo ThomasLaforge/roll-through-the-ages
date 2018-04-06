@@ -98,14 +98,17 @@ export class Store {
 
     @observable private _uiStore: UIStore;
     @observable private _gameStore: Game;
-    @observable private _history: History;
 
     constructor(){
         this.gameStore = new Game()
 		this.uiStore = new UIStore(this.gameStore)
 		this.gameStore.ui = this.uiStore
-		this.history = new History()
-    }
+	}
+	
+	reset(){
+		this.gameStore.reset()
+		this.uiStore.reset()
+	}
 
 	public get uiStore(): UIStore {
 		return this._uiStore;
@@ -118,12 +121,6 @@ export class Store {
 	}
 	public set gameStore(value: Game) {
 		this._gameStore = value;
-	}
-	public get history(): History {
-		return this._history;
-	}
-	public set history(value: History) {
-		this._history = value;
 	}
 
 }
